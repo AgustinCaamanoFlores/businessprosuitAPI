@@ -1,13 +1,14 @@
 package com.businessprosuite.api.model.security;
 
-import com.businessprosuite.api.model.GdprRequest;
-import com.businessprosuite.api.model.NotifQueue;
-import com.businessprosuite.api.model.auditoria.AudActivityLog;
-import com.businessprosuite.api.model.auditoria.AudLoginAttempt;
-import com.businessprosuite.api.model.auditoria.AudSensitiveDataAccess;
-import com.businessprosuite.api.model.company.ComCompany;
-import com.businessprosuite.api.model.finanzas.FinInvoice;
-import com.businessprosuite.api.model.finanzas.FinWallet;
+import com.businessprosuite.api.model.gdpr.GDPRRequest;
+import com.businessprosuite.api.model.notification.NotificationQueue;
+import com.businessprosuite.api.model.audit.ActivityLog;
+import com.businessprosuite.api.model.audit.LoginAttempt;
+import com.businessprosuite.api.model.audit.SensitiveDataAccess;
+import com.businessprosuite.api.model.company.Company;
+import com.businessprosuite.api.model.finance.Invoice;
+import com.businessprosuite.api.model.finance.Wallet;
+import com.businessprosuite.api.model.workflow.WorkflowInstance;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -77,13 +78,13 @@ public class SecUser {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "secus_role_id", nullable = false)
-    private SecRole secusRole;
+    private SecurityRole secusRole;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "secus_cmp_id", nullable = false)
-    private ComCompany secusCmp;
+    private Company secusCmp;
 
     @Column(name = "secus_last_password_change")
     private LocalDateTime secusLastPasswordChange;
@@ -108,39 +109,39 @@ public class SecUser {
     private LocalDateTime secusUpdatedAt;
 
     @OneToMany(mappedBy = "alUser")
-    private Set<AudActivityLog> audActivityLogs = new LinkedHashSet<>();
+    private Set<ActivityLog> activityLogs = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "aulaUser")
-    private Set<AudLoginAttempt> audLoginAttempts = new LinkedHashSet<>();
+    private Set<LoginAttempt> loginAttempts = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "sdaUser")
-    private Set<AudSensitiveDataAccess> audSensitiveDataAccesses = new LinkedHashSet<>();
+    private Set<SensitiveDataAccess> sensitiveDataAccesses = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "finInvSecus")
-    private Set<FinInvoice> finInvoices = new LinkedHashSet<>();
+    private Set<Invoice> invoices = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "finWltSecus")
-    private Set<FinWallet> finWallets = new LinkedHashSet<>();
+    private Set<Wallet> wallets = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "secus")
-    private Set<GdprRequest> gdprRequests = new LinkedHashSet<>();
+    private Set<GDPRRequest> GDPRRequests = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "secus")
-    private Set<NotifQueue> notifQueues = new LinkedHashSet<>();
+    private Set<NotificationQueue> notificationQueues = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "secus")
-    private Set<SecOtp> secOtps = new LinkedHashSet<>();
+    private Set<SecurityOtp> securityOtps = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "secphSecus")
-    private Set<SecPasswordHistory> secPasswordHistories = new LinkedHashSet<>();
+    private Set<SecurityPasswordHistory> secPasswordHistories = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "secus")
-    private Set<SecSession> secSessions = new LinkedHashSet<>();
+    private Set<SecuritySession> securitySessions = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "secUrSecus")
     private Set<SecUserRole> secUserRoles = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "wfAsignadoA")
-    private Set<com.businessprosuite.api.model.WfInstancia> wfInstancias = new LinkedHashSet<>();
+    private Set<WorkflowInstance> workflowInstances = new LinkedHashSet<>();
 
 }

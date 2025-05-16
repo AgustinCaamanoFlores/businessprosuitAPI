@@ -1,4 +1,4 @@
-package com.businessprosuite.api.model.security;
+package com.businessprosuite.api.model.workflow;
 
 import com.businessprosuite.api.model.config.ConfigCompany;
 import jakarta.persistence.*;
@@ -7,7 +7,6 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
-import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -17,26 +16,17 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "subs_plan", schema = "BusinessProSuite")
-public class SubsPlan {
+@Table(name = "wf_def", schema = "BusinessProSuite")
+public class WorkflowDefinition {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "subs_plan_id", nullable = false)
+    @Column(name = "wf_id", nullable = false)
     private Integer id;
 
     @Size(max = 100)
     @NotNull
-    @Column(name = "subs_plan_nombre", nullable = false, length = 100)
-    private String subsPlanNombre;
-
-    @NotNull
-    @Column(name = "subs_plan_precio", nullable = false, precision = 18, scale = 2)
-    private BigDecimal subsPlanPrecio;
-
-    @NotNull
-    @Lob
-    @Column(name = "subs_plan_periodo", nullable = false)
-    private String subsPlanPeriodo;
+    @Column(name = "wf_nombre", nullable = false, length = 100)
+    private String wfNombre;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -45,7 +35,15 @@ public class SubsPlan {
     private ConfigCompany configCompany;
 
     @Builder.Default
-    @OneToMany(mappedBy = "subsPlan")
-    private Set<SubsSuscripcion> subsSuscripcions = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "wf")
+    private Set<WorkflowDefinitionVersion> workflowDefinitionVersions = new LinkedHashSet<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "wf")
+    private Set<WorkflowState> workflowStates = new LinkedHashSet<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "wf")
+    private Set<WorkflowInstance> workflowInstances = new LinkedHashSet<>();
 
 }

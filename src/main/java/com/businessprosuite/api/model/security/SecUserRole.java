@@ -27,6 +27,6 @@ public class SecUserRole {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "sec_ur_secrl_id", nullable = false)
-    private SecRole secUrSecrl;
+    private SecurityRole secUrSecrl;
 
 }

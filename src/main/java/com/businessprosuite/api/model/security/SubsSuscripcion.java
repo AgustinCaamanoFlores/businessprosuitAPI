@@ -1,7 +1,7 @@
 package com.businessprosuite.api.model.security;
 
-import com.businessprosuite.api.model.cliente.CusCustomer;
-import com.businessprosuite.api.model.configuraciones.CfgEmpresa;
+import com.businessprosuite.api.model.customer.Customer;
+import com.businessprosuite.api.model.config.ConfigCompany;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -25,7 +25,7 @@ public class SubsSuscripcion {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "subs_cus_id", nullable = false)
-    private CusCustomer subsCus;
+    private Customer subsCus;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -49,6 +49,6 @@ public class SubsSuscripcion {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @ColumnDefault("1")
     @JoinColumn(name = "empresa_id", nullable = false)
-    private CfgEmpresa empresa;
+    private ConfigCompany configCompany;
 
 }
