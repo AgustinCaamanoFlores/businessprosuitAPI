@@ -1,0 +1,125 @@
+plugins {
+    id 'java'
+    id 'idea'                                  // Para que IntelliJ detecte los sources generados
+    id 'org.springframework.boot' version '3.4.4'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.businessprosuite.api'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // ----------------------------
+    // CORE SPRING BOOT
+    // ----------------------------
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    // ----------------------------
+    // DOCUMENTACIÓN
+    // ----------------------------
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+
+    // ----------------------------
+    // MIGRACIONES
+    // ----------------------------
+    implementation 'org.flywaydb:flyway-core'
+
+    // ----------------------------
+    // MÉTRICAS
+    // ----------------------------
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+
+    // ----------------------------
+    // CACHE
+    // ----------------------------
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'com.github.ben-manes.caffeine:caffeine'
+
+    // ----------------------------
+    // JWT (stateless auth)
+    // ----------------------------
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    runtimeOnly   'io.jsonwebtoken:jjwt-impl:0.11.5', 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+    // ----------------------------
+    // LOMBOK (solo compile-time)
+    // ----------------------------
+    compileOnly 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
+    testCompileOnly 'org.projectlombok:lombok:1.18.32'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
+
+    // ----------------------------
+    // MAPSTRUCT
+    // ----------------------------
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+
+    // ----------------------------
+    // SPRING BOOT DEVTOOLS
+    // ----------------------------
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // ----------------------------
+    // DRIVER MySQL
+    // ----------------------------
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // ----------------------------
+    // TESTING
+    // ----------------------------
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.testcontainers:mysql'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+// ————————————————————————————————————————————————————————————————————————————
+// ¡IMPORTANTE! Para que IntelliJ vea también las fuentes generadas:
+// ————————————————————————————————————————————————————————————————————————————
+tasks.withType(JavaCompile).configureEach {
+    options.annotationProcessorGeneratedSourcesDirectory = file("$buildDir/generated/sources/annotations")
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir "$buildDir/generated/sources/annotations"
+        }
+        resources {
+            srcDir "src/main/resources"
+        }
+    }
+}
+
+idea {
+    module {
+        sourceDirs += file("$buildDir/generated/sources/annotations")
+        generatedSourceDirs += file("$buildDir/generated/sources/annotations")
+    }
+}
