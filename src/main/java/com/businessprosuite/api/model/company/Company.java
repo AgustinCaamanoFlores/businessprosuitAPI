@@ -10,7 +10,7 @@ import com.businessprosuite.api.model.finance.FinanceConsReport;
 import com.businessprosuite.api.model.finance.Journal;
 import com.businessprosuite.api.model.finance.Period;
 import com.businessprosuite.api.model.hr.Worker;
-import com.businessprosuite.api.model.security.SecUser;
+import com.businessprosuite.api.model.security.SecurityUser;
 import com.businessprosuite.api.model.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -117,7 +117,7 @@ public class Company {
 
     @Builder.Default
     @OneToMany(mappedBy = "secusCmp")
-    private Set<SecUser> secUsers = new LinkedHashSet<>();
+    private Set<SecurityUser> securityUsers = new LinkedHashSet<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "usrCmp")

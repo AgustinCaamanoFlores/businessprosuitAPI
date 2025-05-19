@@ -24,7 +24,7 @@ public class SecurityPasswordHistory {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "secph_secus_id", nullable = false)
-    private SecUser secphSecus;
+    private SecurityUser secphSecus;
 
     @Size(max = 255)
     @NotNull

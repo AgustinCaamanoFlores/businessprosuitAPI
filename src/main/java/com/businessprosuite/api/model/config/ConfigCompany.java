@@ -8,8 +8,8 @@ import com.businessprosuite.api.model.company.Company;
 import com.businessprosuite.api.model.finance.Invoice;
 import com.businessprosuite.api.model.inventory.InventoryProduct;
 import com.businessprosuite.api.model.leasing.LeasingContract;
-import com.businessprosuite.api.model.security.SubsPlan;
-import com.businessprosuite.api.model.security.SubsSuscripcion;
+import com.businessprosuite.api.model.subs.SubsPlan;
+import com.businessprosuite.api.model.subs.SubsSuscription;
 import com.businessprosuite.api.model.workflow.WorkflowDefinition;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -103,7 +103,7 @@ public class ConfigCompany {
 
     @Builder.Default
     @OneToMany(mappedBy = "configCompany")
-    private Set<SubsSuscripcion> subsSuscripcions = new LinkedHashSet<>();
+    private Set<SubsSuscription> subsSuscriptions = new LinkedHashSet<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "configCompany")

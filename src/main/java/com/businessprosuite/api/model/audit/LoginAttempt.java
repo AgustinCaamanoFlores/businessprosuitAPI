@@ -1,6 +1,6 @@
 package com.businessprosuite.api.model.audit;
 
-import com.businessprosuite.api.model.security.SecUser;
+import com.businessprosuite.api.model.security.SecurityUser;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -29,7 +29,7 @@ public class LoginAttempt {
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.SET_NULL)
     @JoinColumn(name = "aula_user_id")
-    private SecUser aulaUser;
+    private SecurityUser aulaUser;
 
     @NotNull
     @ColumnDefault("CURRENT_TIMESTAMP")

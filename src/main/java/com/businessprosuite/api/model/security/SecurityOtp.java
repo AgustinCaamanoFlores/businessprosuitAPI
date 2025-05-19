@@ -27,7 +27,7 @@ public class SecurityOtp {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "secus_id", nullable = false)
-    private SecUser secus;
+    private SecurityUser secus;
 
     @Size(max = 6)
     @NotNull

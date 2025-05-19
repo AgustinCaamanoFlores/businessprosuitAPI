@@ -1,6 +1,6 @@
 package com.businessprosuite.api.model.gdpr;
 
-import com.businessprosuite.api.model.security.SecUser;
+import com.businessprosuite.api.model.security.SecurityUser;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -27,7 +27,7 @@ public class GDPRRequest {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "secus_id", nullable = false)
-    private SecUser secus;
+    private SecurityUser secus;
 
     @NotNull
     @Lob

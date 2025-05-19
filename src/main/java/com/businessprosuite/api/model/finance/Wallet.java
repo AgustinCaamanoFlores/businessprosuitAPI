@@ -1,6 +1,6 @@
 package com.businessprosuite.api.model.finance;
 
-import com.businessprosuite.api.model.security.SecUser;
+import com.businessprosuite.api.model.security.SecurityUser;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -32,7 +32,7 @@ public class Wallet {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "fin_wlt_secus_id", nullable = false)
-    private SecUser finWltSecus;
+    private SecurityUser finWltSecus;
 
     @NotNull
     @ColumnDefault("0.00")

@@ -94,6 +94,6 @@ public class User {
 
     @Builder.Default
     @ManyToMany(mappedBy = "users")
-    private Set<Roles> roles = new LinkedHashSet<>();
+    private Set<Role> roles = new LinkedHashSet<>();
 
 }

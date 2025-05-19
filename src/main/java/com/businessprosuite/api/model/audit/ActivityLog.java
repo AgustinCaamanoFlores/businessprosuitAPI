@@ -1,6 +1,6 @@
 package com.businessprosuite.api.model.audit;
 
-import com.businessprosuite.api.model.security.SecUser;
+import com.businessprosuite.api.model.security.SecurityUser;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -27,7 +27,7 @@ public class ActivityLog {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "al_user_id", nullable = false)
-    private SecUser alUser;
+    private SecurityUser alUser;
 
     @Size(max = 100)
     @NotNull

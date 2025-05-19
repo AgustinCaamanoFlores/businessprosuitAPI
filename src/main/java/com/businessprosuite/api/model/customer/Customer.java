@@ -5,7 +5,7 @@ import com.businessprosuite.api.model.config.ConfigCompany;
 import com.businessprosuite.api.model.config.ConfigCountry;
 import com.businessprosuite.api.model.finance.Invoice;
 import com.businessprosuite.api.model.leasing.LeasingContract;
-import com.businessprosuite.api.model.security.SubsSuscripcion;
+import com.businessprosuite.api.model.subs.SubsSuscription;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -101,6 +101,6 @@ public class Customer {
 
     @Builder.Default
     @OneToMany(mappedBy = "subsCus")
-    private Set<SubsSuscripcion> subsSuscripcions = new LinkedHashSet<>();
+    private Set<SubsSuscription> subsSuscriptions = new LinkedHashSet<>();
 
 }

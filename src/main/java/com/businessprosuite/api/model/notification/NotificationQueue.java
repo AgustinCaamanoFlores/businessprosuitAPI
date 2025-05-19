@@ -1,6 +1,6 @@
 package com.businessprosuite.api.model.notification;
 
-import com.businessprosuite.api.model.security.SecUser;
+import com.businessprosuite.api.model.security.SecurityUser;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -30,7 +30,7 @@ public class NotificationQueue {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "secus_id")
-    private SecUser secus;
+    private SecurityUser secus;
 
     @Lob
     @Column(name = "payload_json")

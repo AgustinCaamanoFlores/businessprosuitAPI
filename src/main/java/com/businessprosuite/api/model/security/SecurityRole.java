@@ -63,11 +63,11 @@ public class SecurityRole {
 
     @Builder.Default
     @OneToMany(mappedBy = "secUrSecrl")
-    private Set<SecUserRole> secUserRoles = new LinkedHashSet<>();
+    private Set<SecurityUserRole> securityUserRoles = new LinkedHashSet<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "secusRole")
-    private Set<SecUser> secUsers = new LinkedHashSet<>();
+    private Set<SecurityUser> securityUsers = new LinkedHashSet<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "targetRole")

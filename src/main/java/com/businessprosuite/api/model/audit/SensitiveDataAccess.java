@@ -1,6 +1,6 @@
 package com.businessprosuite.api.model.audit;
 
-import com.businessprosuite.api.model.security.SecUser;
+import com.businessprosuite.api.model.security.SecurityUser;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -25,7 +25,7 @@ public class SensitiveDataAccess {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "sda_user_id", nullable = false)
-    private SecUser sdaUser;
+    private SecurityUser sdaUser;
 
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "sda_accessed_at")

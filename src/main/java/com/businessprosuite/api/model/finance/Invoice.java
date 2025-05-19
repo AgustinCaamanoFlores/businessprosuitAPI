@@ -2,7 +2,7 @@ package com.businessprosuite.api.model.finance;
 
 import com.businessprosuite.api.model.customer.Customer;
 import com.businessprosuite.api.model.config.ConfigCompany;
-import com.businessprosuite.api.model.security.SecUser;
+import com.businessprosuite.api.model.security.SecurityUser;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -61,7 +61,7 @@ public class Invoice {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "fin_inv_secus_id", nullable = false)
-    private SecUser finInvSecus;
+    private SecurityUser finInvSecus;
 
     @NotNull
     @Lob
