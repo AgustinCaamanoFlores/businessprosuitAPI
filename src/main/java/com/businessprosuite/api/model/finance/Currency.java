@@ -55,10 +55,10 @@ public class Currency {
     private LocalDateTime finCurUpdatedAt;
 
     @OneToMany(mappedBy = "finConvCurFrom")
-    private Set<Conv> finConvsFrom = new LinkedHashSet<>();
+    private Set<Conversion> finConvsFrom = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "finConvCurTo")
-    private Set<Conv> finConvsTo = new LinkedHashSet<>();
+    private Set<Conversion> finConvsTo = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "finWltCurCode")
     private Set<Wallet> wallets = new LinkedHashSet<>();

@@ -4,41 +4,28 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.Hibernate;
-import org.hibernate.annotations.ColumnDefault;
-
 import java.io.Serializable;
-import java.util.Objects;
+import java.time.LocalDateTime;
 
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
 @Embeddable
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class AuditTrailId implements Serializable {
-    //private static final long serialVersionUID = 6642374225962892264L;
-    @NotNull
-    @Column(name = "auda_id", nullable = false)
-    private Integer audaId;
+
+    private static final long serialVersionUID = 1L;
 
     @NotNull
-    @ColumnDefault("1")
-    @Column(name = "auda_empresa_id", nullable = false)
-    private Integer audaEmpresaId;
+    @Column(name = "auda_table", length = 100, nullable = false)
+    private String audaTable;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        AuditTrailId entity = (AuditTrailId) o;
-        return Objects.equals(this.audaId, entity.audaId) &&
-                Objects.equals(this.audaEmpresaId, entity.audaEmpresaId);
-    }
+    @NotNull
+    @Column(name = "auda_record_id", nullable = false)
+    private Integer audaRecordId;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(audaId, audaEmpresaId);
-    }
+    @NotNull
+    @Column(name = "auda_changed_at", nullable = false)
+    private LocalDateTime audaChangedAt;
 
 }
