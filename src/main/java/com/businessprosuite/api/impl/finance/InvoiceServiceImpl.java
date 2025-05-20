@@ -1,6 +1,7 @@
 package com.businessprosuite.api.impl.finance;
 
 import com.businessprosuite.api.dto.finance.InvoiceDTO;
+import com.businessprosuite.api.model.config.ConfigCompany;
 import com.businessprosuite.api.model.finance.Invoice;
 import com.businessprosuite.api.model.company.Company;
 import com.businessprosuite.api.model.customer.Customer;
@@ -46,7 +47,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     public InvoiceDTO create(InvoiceDTO dto) {
-        Company company = companyRepo.findById(dto.getConfigCompanyId())
+        ConfigCompany company = companyRepo.findById(dto.getConfigCompanyId())
                 .orElseThrow(() -> new EntityNotFoundException("ConfigCompany not found with id " + dto.getConfigCompanyId()));
         Customer customer = customerRepo.findById(dto.getCustomerId())
                 .orElseThrow(() -> new EntityNotFoundException("Customer not found with id " + dto.getCustomerId()));
@@ -76,7 +77,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     public InvoiceDTO update(Integer id, InvoiceDTO dto) {
         Invoice inv = invoiceRepo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Invoice not found with id " + id));
-        Company company = companyRepo.findById(dto.getConfigCompanyId())
+        ConfigCompany company = companyRepo.findById(dto.getConfigCompanyId())
                 .orElseThrow(() -> new EntityNotFoundException("ConfigCompany not found with id " + dto.getConfigCompanyId()));
         Customer customer = customerRepo.findById(dto.getCustomerId())
                 .orElseThrow(() -> new EntityNotFoundException("Customer not found with id " + dto.getCustomerId()));

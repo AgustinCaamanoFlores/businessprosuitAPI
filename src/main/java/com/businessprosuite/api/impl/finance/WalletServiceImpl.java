@@ -44,7 +44,7 @@ public class WalletServiceImpl implements WalletService {
     public WalletDTO create(WalletDTO dto) {
         SecurityUser user = userRepo.findById(dto.getSecurityUserId())
                 .orElseThrow(() -> new EntityNotFoundException("SecurityUser not found with id " + dto.getSecurityUserId()));
-        Currency currency = currencyRepo.findById(dto.getCurrencyCode())
+        Currency currency = currencyRepo.findById(Integer.valueOf(dto.getCurrencyCode()))
                 .orElseThrow(() -> new EntityNotFoundException("Currency not found with code " + dto.getCurrencyCode()));
 
         Wallet wallet = new Wallet();
@@ -65,7 +65,7 @@ public class WalletServiceImpl implements WalletService {
                 .orElseThrow(() -> new EntityNotFoundException("Wallet not found with id " + id));
         SecurityUser user = userRepo.findById(dto.getSecurityUserId())
                 .orElseThrow(() -> new EntityNotFoundException("SecurityUser not found with id " + dto.getSecurityUserId()));
-        Currency currency = currencyRepo.findById(dto.getCurrencyCode())
+        Currency currency = currencyRepo.findById(Integer.valueOf(dto.getCurrencyCode()))
                 .orElseThrow(() -> new EntityNotFoundException("Currency not found with code " + dto.getCurrencyCode()));
 
         wallet.setFinWltSecus(user);

@@ -2,7 +2,7 @@ package com.businessprosuite.api.impl.core;
 
 import com.businessprosuite.api.dto.core.TranslationDTO;
 import com.businessprosuite.api.model.core.Translation;
-import com.businessprosuite.api.repository.inventory.InventoryTranslationRepository;
+import com.businessprosuite.api.repository.core.TranslationRepository;
 import com.businessprosuite.api.service.core.TranslationService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class TranslationServiceImpl implements TranslationService {
 
-    private final InventoryTranslationRepository repo;
+    private final TranslationRepository repo;
 
     @Override
     public List<TranslationDTO> findAll() {

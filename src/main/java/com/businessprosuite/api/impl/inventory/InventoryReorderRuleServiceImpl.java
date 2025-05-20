@@ -1,4 +1,4 @@
-package com.businessprosuite.api.service.inventory.impl;
+package com.businessprosuite.api.impl.inventory;
 
 import com.businessprosuite.api.dto.inventory.InventoryReorderRuleDTO;
 import com.businessprosuite.api.model.inventory.InventoryReorderRule;
