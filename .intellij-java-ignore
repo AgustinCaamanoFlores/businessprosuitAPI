@@ -1,0 +1,34 @@
+# IntelliJ Java Analysis Ignore List
+# Files that should NOT be analyzed as Java source code
+
+# Documentation files
+docs/**/*.md
+*.md
+README.md
+QUICK_START.md
+API_DOCUMENTATION.md
+CONEXION_API.md
+MODULARIZATION_ROADMAP.md
+
+# Configuration files
+*.yml
+*.yaml
+*.properties
+*.json
+*.xml
+
+# Build files
+*.gradle
+*.gradle.kts
+build.gradle
+settings.gradle
+
+# Shell scripts
+*.sh
+*.bat
+
+# Other non-Java files
+LICENSE
+.gitignore
+.gitattributes
+.editorconfig 

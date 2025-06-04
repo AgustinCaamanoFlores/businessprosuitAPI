@@ -55,10 +55,10 @@ docs/**/*.md linguist-language=Markdown linguist-detectable=true
 docs/**/*_ES.md linguist-language=Markdown linguist-detectable=true
 docs/**/*_EN.md linguist-language=Markdown linguist-detectable=true
 
-# Specific problematic files - Force Markdown detection
-docs/CONEXION_API.md linguist-language=Markdown linguist-detectable=true
-docs/API_DOCUMENTATION.md linguist-language=Markdown linguist-detectable=true
-docs/MODULARIZATION_ROADMAP.md linguist-language=Markdown linguist-detectable=true
+# Specific problematic files - Force Markdown detection with override
+docs/CONEXION_API.md linguist-language=Markdown linguist-detectable=true linguist-documentation=true
+docs/API_DOCUMENTATION.md linguist-language=Markdown linguist-detectable=true linguist-documentation=true
+docs/MODULARIZATION_ROADMAP.md linguist-language=Markdown linguist-detectable=true linguist-documentation=true
 
 # SQL files in documentation should be treated as text
 *.sql text linguist-language=SQL
@@ -69,3 +69,7 @@ Dockerfile text linguist-language=Dockerfile
 
 # JSON files
 *.json text linguist-language=JSON
+
+# Force specific file detection regardless of content
+**/CONEXION_API.md linguist-language=Markdown linguist-override=true
+**/API_DOCUMENTATION.md linguist-language=Markdown linguist-override=true

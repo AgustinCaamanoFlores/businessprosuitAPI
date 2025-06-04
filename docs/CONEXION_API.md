@@ -1,28 +1,29 @@
----
-title: "BusinessProSuite API - Guía de Conexión"
-description: "Guía completa para conectar con la API de BusinessProSuite desde diferentes lenguajes"
-language: "markdown"
-type: "documentation"
----
+<!-- markdownlint-disable-file -->
+<!-- markdown-language=markdown -->
+<!-- file-type=documentation -->
+# 🔌 Conexión a BusinessProSuite API V0.2
 
-<!-- Markdown file with code examples -->
+![Version](https://img.shields.io/badge/Version-V0.2-brightgreen)
+![API](https://img.shields.io/badge/API-REST-blue)
+![Auth](https://img.shields.io/badge/Auth-JWT-green)
 
-# 🔌 Guía de Conexión a BusinessProSuite API
+<!-- 
+FILETYPE: Markdown Documentation
+LANGUAGE: Spanish/English Documentation
+PURPOSE: API Integration Guide
+WARNING: This file contains code examples in multiple languages but is NOT source code
+-->
 
-![API](https://img.shields.io/badge/API-V0.2-blue)
-![Status](https://img.shields.io/badge/Status-Active-green)
-![Documentation](https://img.shields.io/badge/Docs-100%25-brightgreen)
+## 📋 Tabla de Contenidos
 
-## 📋 Índice de Contenidos
-
-- [🚀 Configuración Inicial](#configuración-inicial)
-- [🔐 Autenticación](#autenticación)
-- [💻 Ejemplos por Lenguaje](#ejemplos-por-lenguaje)
-- [🧪 Herramientas de Testing](#herramientas-de-testing)
-- [📚 Librerías y SDKs](#librerías-y-sdks)
-- [🚨 Manejo de Errores](#manejo-de-errores)
-- [📖 Casos de Uso Completos](#casos-de-uso-completos)
-- [🏆 Mejores Prácticas](#mejores-prácticas)
+- [Configuración Inicial](#configuración-inicial)
+- [Autenticación](#autenticación)
+- [Ejemplos por Lenguaje](#ejemplos-por-lenguaje)
+- [Herramientas de Testing](#herramientas-de-testing)
+- [Librerías y SDKs](#librerías-y-sdks)
+- [Manejo de Errores](#manejo-de-errores)
+- [Casos de Uso Completos](#casos-de-uso-completos)
+- [Mejores Prácticas](#mejores-prácticas)
 
 ---
 
@@ -329,7 +330,6 @@ except requests.exceptions.RequestException as e:
 
 ### ☕ Java
 
-<!-- JAVA CODE EXAMPLE START -->
 #### Con OkHttp y Jackson
 ```java
 import okhttp3.*;
@@ -420,7 +420,6 @@ System.out.println("Login exitoso: " + loginResult);
 JsonNode companies = api.getCompanies();
 System.out.println("Empresas: " + companies);
 ```
-<!-- JAVA CODE EXAMPLE END -->
 
 ### 🐘 PHP
 

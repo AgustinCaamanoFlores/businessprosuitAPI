@@ -36,6 +36,22 @@ indent_style = space
 indent_size = 2
 trim_trailing_whitespace = false
 
+# Specific problematic Markdown files
+[docs/CONEXION_API.md]
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = false
+
+[docs/API_DOCUMENTATION.md]
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = false
+
+[docs/MODULARIZATION_ROADMAP.md]
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = false
+
 # JSON files
 [*.json]
 indent_style = space
