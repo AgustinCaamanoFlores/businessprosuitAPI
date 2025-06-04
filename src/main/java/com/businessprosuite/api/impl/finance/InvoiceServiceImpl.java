@@ -11,6 +11,7 @@ import com.businessprosuite.api.repository.customer.CustomerRepository;
 import com.businessprosuite.api.repository.finance.InvoiceRepository;
 import com.businessprosuite.api.repository.security.SecurityUserRepository;
 import com.businessprosuite.api.service.finance.InvoiceService;
+import com.businessprosuite.api.mapper.InvoiceMapper;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,11 +31,12 @@ public class InvoiceServiceImpl implements InvoiceService {
     private final ConfigCompanyRepository companyRepo;
     private final CustomerRepository       customerRepo;
     private final SecurityUserRepository   userRepo;
+    private final InvoiceMapper           invoiceMapper;
 
     @Override
     public List<InvoiceDTO> findAll() {
         return invoiceRepo.findAll().stream()
-                .map(this::toDto)
+                .map(invoiceMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -42,7 +44,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     public InvoiceDTO findById(Integer id) {
         Invoice inv = invoiceRepo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Invoice not found with id " + id));
-        return toDto(inv);
+        return invoiceMapper.toDto(inv);
     }
 
     @Override
@@ -54,23 +56,17 @@ public class InvoiceServiceImpl implements InvoiceService {
         SecurityUser user = userRepo.findById(dto.getSecurityUserId())
                 .orElseThrow(() -> new EntityNotFoundException("SecurityUser not found with id " + dto.getSecurityUserId()));
 
-        Invoice inv = new Invoice();
+        Invoice inv = invoiceMapper.toEntity(dto);
         inv.setConfigCompany(company);
-        inv.setFinInvDate(dto.getDate());
         inv.setFinInvCus(customer);
-        inv.setFinInvTotal(dto.getTotal());
-        inv.setFinInvTax(dto.getTax());
-        inv.setFinInvDiscount(dto.getDiscount());
         inv.setFinInvSecus(user);
-        inv.setFinInvPaymentStatus(dto.getPaymentStatus());
         inv.setFinInvCreatedAt(LocalDateTime.now());
         inv.setFinInvUpdatedAt(LocalDateTime.now());
-        // Calcular neto: (total - discount) + tax
         BigDecimal net = dto.getTotal().subtract(dto.getDiscount()).add(dto.getTax());
         inv.setFinInvNet(net);
 
         Invoice saved = invoiceRepo.save(inv);
-        return toDto(saved);
+        return invoiceMapper.toDto(saved);
     }
 
     @Override
@@ -85,19 +81,15 @@ public class InvoiceServiceImpl implements InvoiceService {
                 .orElseThrow(() -> new EntityNotFoundException("SecurityUser not found with id " + dto.getSecurityUserId()));
 
         inv.setConfigCompany(company);
-        inv.setFinInvDate(dto.getDate());
         inv.setFinInvCus(customer);
-        inv.setFinInvTotal(dto.getTotal());
-        inv.setFinInvTax(dto.getTax());
-        inv.setFinInvDiscount(dto.getDiscount());
         inv.setFinInvSecus(user);
-        inv.setFinInvPaymentStatus(dto.getPaymentStatus());
+        invoiceMapper.updateEntity(dto, inv);
         inv.setFinInvUpdatedAt(LocalDateTime.now());
         BigDecimal net = dto.getTotal().subtract(dto.getDiscount()).add(dto.getTax());
         inv.setFinInvNet(net);
 
         Invoice updated = invoiceRepo.save(inv);
-        return toDto(updated);
+        return invoiceMapper.toDto(updated);
     }
 
     @Override
@@ -108,20 +100,4 @@ public class InvoiceServiceImpl implements InvoiceService {
         invoiceRepo.deleteById(id);
     }
 
-    private InvoiceDTO toDto(Invoice inv) {
-        return InvoiceDTO.builder()
-                .id(inv.getId())
-                .configCompanyId(inv.getConfigCompany().getId())
-                .date(inv.getFinInvDate())
-                .customerId(inv.getFinInvCus().getId())
-                .total(inv.getFinInvTotal())
-                .tax(inv.getFinInvTax())
-                .discount(inv.getFinInvDiscount())
-                .securityUserId(inv.getFinInvSecus().getId())
-                .paymentStatus(inv.getFinInvPaymentStatus())
-                .createdAt(inv.getFinInvCreatedAt())
-                .updatedAt(inv.getFinInvUpdatedAt())
-                .net(inv.getFinInvNet())
-                .build();
-    }
 }
