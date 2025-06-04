@@ -21,11 +21,11 @@ public class AuditTrail {
 
     @Size(max = 100)
     @NotNull
-    @Column(name = "auda_table", nullable = false, length = 100, insertable = false, updatable = false)
+    @Column(name = "auda_table", nullable = false, length = 100)
     private String audaTable;
 
     @NotNull
-    @Column(name = "auda_record_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "auda_record_id", nullable = false)
     private Integer audaRecordId;
 
     @NotNull
@@ -39,7 +39,7 @@ public class AuditTrail {
 
     @NotNull
     @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "auda_changed_at", nullable = false, insertable = false, updatable = false)
+    @Column(name = "auda_changed_at", nullable = false)
     private LocalDateTime audaChangedAt;
 
     @Size(max = 100)

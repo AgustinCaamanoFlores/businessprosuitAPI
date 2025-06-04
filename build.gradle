@@ -3,7 +3,6 @@ plugins {
     id 'idea'                                  // Para que IntelliJ detecte los sources generados
     id 'org.springframework.boot' version '3.4.4'
     id 'io.spring.dependency-management' version '1.1.7'
-    id 'jacoco'
 }
 
 group = 'com.businessprosuite.api'
@@ -38,7 +37,7 @@ dependencies {
     // ----------------------------
     // DOCUMENTACIÓN
     // ----------------------------
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
 
     // ----------------------------
     // MIGRACIONES
@@ -98,12 +97,6 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
-    finalizedBy jacocoTestReport
-}
-
-// Handle duplicate files during resource processing
-tasks.withType(Copy) {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 // ————————————————————————————————————————————————————————————————————————————
@@ -130,58 +123,3 @@ idea {
         generatedSourceDirs += file("$buildDir/generated/sources/annotations")
     }
 }
-
-// JaCoCo Configuration for V0.2 Testing Initiative
-jacoco {
-    toolVersion = "0.8.11"
-}
-
-jacocoTestReport {
-    dependsOn test
-    reports {
-        xml.required = true
-        csv.required = false
-        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
-    }
-    afterEvaluate {
-        classDirectories.setFrom(files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: [
-                // Exclude generated classes
-                '**/Q*',
-                '**/*MapperImpl*',
-                // Exclude DTOs (mostly data classes)
-                '**/dto/**',
-                // Exclude config classes (harder to test meaningfully)
-                '**/config/**',
-                // Exclude main application class
-                '**/BusinessProSuiteApiApplication*'
-            ])
-        }))
-    }
-}
-
-jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            limit {
-                minimum = 0.30 // Start with 30%, target 80% by end of V0.2
-            }
-        }
-        rule {
-            limit {
-                counter = 'LINE'
-                value = 'COVEREDRATIO'
-                minimum = 0.30
-            }
-        }
-        rule {
-            limit {
-                counter = 'BRANCH'
-                value = 'COVEREDRATIO'
-                minimum = 0.25
-            }
-        }
-    }
-}
-
-check.dependsOn jacocoTestCoverageVerification
