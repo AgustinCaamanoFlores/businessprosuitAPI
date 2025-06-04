@@ -17,7 +17,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "inv_whse", schema = "BusinessProSuite")
-public class InventoryWerehouse {
+public class InventoryWarehouse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "inv_whse_id", nullable = false)
