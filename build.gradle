@@ -123,3 +123,6 @@ idea {
         generatedSourceDirs += file("$buildDir/generated/sources/annotations")
     }
 }
+tasks.named('processResources') {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
