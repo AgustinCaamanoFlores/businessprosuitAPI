@@ -12,6 +12,7 @@ import com.businessprosuite.api.repository.config.ConfigCountryRepository;
 import com.businessprosuite.api.service.customer.CustomerService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +31,7 @@ public class CustomerServiceImpl implements CustomerService {
     private final ConfigCountryRepository countryRepo;
 
     @Override
+    @Cacheable("customers")
     public List<CustomerDTO> findAll() {
         return customerRepo.findAll().stream()
                 .map(this::toDto)

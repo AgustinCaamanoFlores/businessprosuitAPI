@@ -4,6 +4,7 @@ import com.businessprosuite.api.dto.config.ConfigCompanyDTO;
 import com.businessprosuite.api.model.config.ConfigCompany;
 import com.businessprosuite.api.repository.config.ConfigCompanyRepository;
 import com.businessprosuite.api.service.config.ConfigCompanyService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,7 @@ public class ConfigCompanyServiceImpl implements ConfigCompanyService {
     }
 
     @Override
+    @Cacheable("configCompanies")
     public List<ConfigCompanyDTO> findAll() {
         return repo.findAll().stream()
                 .map(this::toDto)
