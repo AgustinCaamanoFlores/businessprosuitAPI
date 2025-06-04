@@ -8,6 +8,7 @@ import com.businessprosuite.api.repository.document.DocumentRepository;
 import com.businessprosuite.api.service.document.DocumentVersionService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +25,7 @@ public class DocumentVersionServiceImpl implements DocumentVersionService {
     private final DocumentRepository docRepo;
 
     @Override
+    @Cacheable("documentVersions")
     public List<DocumentVersionDTO> findAll() {
         return versionRepo.findAll().stream()
                 .map(this::toDto)
