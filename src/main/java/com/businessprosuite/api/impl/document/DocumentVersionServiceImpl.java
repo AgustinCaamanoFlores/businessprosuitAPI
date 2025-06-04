@@ -6,6 +6,7 @@ import com.businessprosuite.api.model.document.Document;
 import com.businessprosuite.api.repository.document.DocumentVersionRepository;
 import com.businessprosuite.api.repository.document.DocumentRepository;
 import com.businessprosuite.api.service.document.DocumentVersionService;
+import com.businessprosuite.api.mapper.DocumentVersionMapper;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
@@ -23,12 +24,13 @@ public class DocumentVersionServiceImpl implements DocumentVersionService {
 
     private final DocumentVersionRepository versionRepo;
     private final DocumentRepository docRepo;
+    private final DocumentVersionMapper versionMapper;
 
     @Override
     @Cacheable("documentVersions")
     public List<DocumentVersionDTO> findAll() {
         return versionRepo.findAll().stream()
-                .map(this::toDto)
+                .map(versionMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -36,7 +38,7 @@ public class DocumentVersionServiceImpl implements DocumentVersionService {
     public DocumentVersionDTO findById(Integer id) {
         DocumentVersion ver = versionRepo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("DocumentVersion not found with id " + id));
-        return toDto(ver);
+        return versionMapper.toDto(ver);
     }
 
     @Override
@@ -44,13 +46,11 @@ public class DocumentVersionServiceImpl implements DocumentVersionService {
         Document doc = docRepo.findById(dto.getDocumentId())
                 .orElseThrow(() -> new EntityNotFoundException("Document not found with id " + dto.getDocumentId()));
 
-        DocumentVersion ver = new DocumentVersion();
+        DocumentVersion ver = versionMapper.toEntity(dto);
         ver.setDoc(doc);
-        ver.setVersionNumber(dto.getVersionNumber());
-        ver.setUrl(dto.getUrl());
         ver.setCreatedAt(LocalDateTime.now());
         DocumentVersion saved = versionRepo.save(ver);
-        return toDto(saved);
+        return versionMapper.toDto(saved);
     }
 
     @Override
@@ -61,11 +61,10 @@ public class DocumentVersionServiceImpl implements DocumentVersionService {
                 .orElseThrow(() -> new EntityNotFoundException("Document not found with id " + dto.getDocumentId()));
 
         ver.setDoc(doc);
-        ver.setVersionNumber(dto.getVersionNumber());
-        ver.setUrl(dto.getUrl());
+        versionMapper.updateEntity(dto, ver);
         // createdAt not changed
         DocumentVersion updated = versionRepo.save(ver);
-        return toDto(updated);
+        return versionMapper.toDto(updated);
     }
 
     @Override
@@ -76,13 +75,4 @@ public class DocumentVersionServiceImpl implements DocumentVersionService {
         versionRepo.deleteById(id);
     }
 
-    private DocumentVersionDTO toDto(DocumentVersion ver) {
-        return DocumentVersionDTO.builder()
-                .id(ver.getId())
-                .documentId(ver.getDoc().getId())
-                .versionNumber(ver.getVersionNumber())
-                .url(ver.getUrl())
-                .createdAt(ver.getCreatedAt())
-                .build();
-    }
 }

@@ -8,6 +8,7 @@ import com.businessprosuite.api.repository.security.SecurityUserRepository;
 import com.businessprosuite.api.repository.security.SecurityRoleRepository;
 import com.businessprosuite.api.repository.company.CompanyRepository;
 import com.businessprosuite.api.service.security.SecurityUserService;
+import com.businessprosuite.api.mapper.SecurityUserMapper;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,11 +25,12 @@ public class SecurityUserServiceImpl implements SecurityUserService {
     private final SecurityUserRepository userRepo;
     private final SecurityRoleRepository roleRepo;
     private final CompanyRepository companyRepo;
+    private final SecurityUserMapper userMapper;
 
     @Override
     public List<SecurityUserDTO> findAll() {
         return userRepo.findAll().stream()
-                .map(this::toDto)
+                .map(userMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -36,7 +38,7 @@ public class SecurityUserServiceImpl implements SecurityUserService {
     public SecurityUserDTO findById(Integer id) {
         SecurityUser u = userRepo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("SecurityUser not found with id " + id));
-        return toDto(u);
+        return userMapper.toDto(u);
     }
 
     @Override
@@ -46,25 +48,14 @@ public class SecurityUserServiceImpl implements SecurityUserService {
         Company cmp = companyRepo.findById(dto.getCompanyId())
                 .orElseThrow(() -> new EntityNotFoundException("Company not found with id " + dto.getCompanyId()));
 
-        SecurityUser u = new SecurityUser();
-        u.setSecusName(dto.getName());
-        u.setSecusPassword(dto.getPassword());
-        u.setSecusEmail(dto.getEmail());
-        u.setSecusAvailable(dto.getAvailable());
-        u.setSecusLastLogin(dto.getLastLogin());
-        u.setSecusActive(dto.getActive());
-        u.setSecusMfaEnabled(dto.getMfaEnabled());
-        u.setSecusMfaSecret(dto.getMfaSecret());
+        SecurityUser u = userMapper.toEntity(dto);
         u.setSecusRole(role);
         u.setSecusCmp(cmp);
-        u.setSecusLastPasswordChange(dto.getLastPasswordChange());
-        u.setSecusFailedAttempts(dto.getFailedAttempts());
-        u.setSecusResidence(dto.getResidence());
         u.setSecusCreatedAt(LocalDateTime.now());
         u.setSecusUpdatedAt(LocalDateTime.now());
-
+        
         SecurityUser saved = userRepo.save(u);
-        return toDto(saved);
+        return userMapper.toDto(saved);
     }
 
     @Override
@@ -76,23 +67,13 @@ public class SecurityUserServiceImpl implements SecurityUserService {
         Company cmp = companyRepo.findById(dto.getCompanyId())
                 .orElseThrow(() -> new EntityNotFoundException("Company not found with id " + dto.getCompanyId()));
 
-        u.setSecusName(dto.getName());
-        u.setSecusPassword(dto.getPassword());
-        u.setSecusEmail(dto.getEmail());
-        u.setSecusAvailable(dto.getAvailable());
-        u.setSecusLastLogin(dto.getLastLogin());
-        u.setSecusActive(dto.getActive());
-        u.setSecusMfaEnabled(dto.getMfaEnabled());
-        u.setSecusMfaSecret(dto.getMfaSecret());
+        userMapper.updateEntity(dto, u);
         u.setSecusRole(role);
         u.setSecusCmp(cmp);
-        u.setSecusLastPasswordChange(dto.getLastPasswordChange());
-        u.setSecusFailedAttempts(dto.getFailedAttempts());
-        u.setSecusResidence(dto.getResidence());
         u.setSecusUpdatedAt(LocalDateTime.now());
-
+        
         SecurityUser updated = userRepo.save(u);
-        return toDto(updated);
+        return userMapper.toDto(updated);
     }
 
     @Override
@@ -103,24 +84,4 @@ public class SecurityUserServiceImpl implements SecurityUserService {
         userRepo.deleteById(id);
     }
 
-    private SecurityUserDTO toDto(SecurityUser u) {
-        return SecurityUserDTO.builder()
-                .id(u.getId())
-                .name(u.getSecusName())
-                .password(u.getSecusPassword())
-                .email(u.getSecusEmail())
-                .available(u.getSecusAvailable())
-                .lastLogin(u.getSecusLastLogin())
-                .active(u.getSecusActive())
-                .mfaEnabled(u.getSecusMfaEnabled())
-                .mfaSecret(u.getSecusMfaSecret())
-                .roleId(u.getSecusRole().getId())
-                .companyId(u.getSecusCmp().getId())
-                .lastPasswordChange(u.getSecusLastPasswordChange())
-                .failedAttempts(u.getSecusFailedAttempts())
-                .residence(u.getSecusResidence())
-                .createdAt(u.getSecusCreatedAt())
-                .updatedAt(u.getSecusUpdatedAt())
-                .build();
-    }
 }

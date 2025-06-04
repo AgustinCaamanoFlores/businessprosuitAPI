@@ -6,6 +6,7 @@ import com.businessprosuite.api.model.company.Company;
 import com.businessprosuite.api.repository.document.DocumentRepository;
 import com.businessprosuite.api.repository.company.CompanyRepository;
 import com.businessprosuite.api.service.document.DocumentService;
+import com.businessprosuite.api.mapper.DocumentMapper;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
@@ -23,12 +24,13 @@ public class DocumentServiceImpl implements DocumentService {
 
     private final DocumentRepository docRepo;
     private final CompanyRepository companyRepo;
+    private final DocumentMapper documentMapper;
 
     @Override
     @Cacheable("documents")
     public List<DocumentDTO> findAll() {
         return docRepo.findAll().stream()
-                .map(this::toDto)
+                .map(documentMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -36,21 +38,18 @@ public class DocumentServiceImpl implements DocumentService {
     public DocumentDTO findById(Integer id) {
         Document doc = docRepo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Document not found with id " + id));
-        return toDto(doc);
+        return documentMapper.toDto(doc);
     }
 
     @Override
     public DocumentDTO create(DocumentDTO dto) {
         Company cmp = companyRepo.findById(dto.getCompanyId())
                 .orElseThrow(() -> new EntityNotFoundException("Company not found with id " + dto.getCompanyId()));
-        Document doc = new Document();
-        doc.setDocName(dto.getName());
-        doc.setDocType(dto.getType());
-        doc.setDocUrl(dto.getUrl());
+        Document doc = documentMapper.toEntity(dto);
         doc.setDocCmp(cmp);
         doc.setDocCreatedAt(LocalDateTime.now());
         Document saved = docRepo.save(doc);
-        return toDto(saved);
+        return documentMapper.toDto(saved);
     }
 
     @Override
@@ -59,13 +58,11 @@ public class DocumentServiceImpl implements DocumentService {
                 .orElseThrow(() -> new EntityNotFoundException("Document not found with id " + id));
         Company cmp = companyRepo.findById(dto.getCompanyId())
                 .orElseThrow(() -> new EntityNotFoundException("Company not found with id " + dto.getCompanyId()));
-        doc.setDocName(dto.getName());
-        doc.setDocType(dto.getType());
-        doc.setDocUrl(dto.getUrl());
+        documentMapper.updateEntity(dto, doc);
         doc.setDocCmp(cmp);
         // createdAt unchanged
         Document updated = docRepo.save(doc);
-        return toDto(updated);
+        return documentMapper.toDto(updated);
     }
 
     @Override
@@ -76,14 +73,4 @@ public class DocumentServiceImpl implements DocumentService {
         docRepo.deleteById(id);
     }
 
-    private DocumentDTO toDto(Document doc) {
-        return DocumentDTO.builder()
-                .id(doc.getId())
-                .name(doc.getDocName())
-                .type(doc.getDocType())
-                .url(doc.getDocUrl())
-                .companyId(doc.getDocCmp().getId())
-                .createdAt(doc.getDocCreatedAt())
-                .build();
-    }
 }

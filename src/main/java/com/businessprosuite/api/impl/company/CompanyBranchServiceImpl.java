@@ -7,6 +7,7 @@ import com.businessprosuite.api.model.company.CompanyBranch;
 import com.businessprosuite.api.repository.company.CompanyBranchRepository;
 import com.businessprosuite.api.repository.company.CompanyRepository;
 import com.businessprosuite.api.service.company.CompanyBranchService;
+import com.businessprosuite.api.mapper.CompanyBranchMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,17 +20,20 @@ public class CompanyBranchServiceImpl implements CompanyBranchService {
 
     private final CompanyBranchRepository repo;
     private final CompanyRepository companyRepo;
+    private final CompanyBranchMapper branchMapper;
 
     public CompanyBranchServiceImpl(CompanyBranchRepository repo,
-                                    CompanyRepository companyRepo) {
+                                    CompanyRepository companyRepo,
+                                    CompanyBranchMapper branchMapper) {
         this.repo = repo;
         this.companyRepo = companyRepo;
+        this.branchMapper = branchMapper;
     }
 
     @Override
     public List<CompanyBranchDTO> findAll() {
         return repo.findAll().stream()
-                .map(this::toDto)
+                .map(branchMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -38,14 +42,18 @@ public class CompanyBranchServiceImpl implements CompanyBranchService {
         CompanyBranch entity = repo.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(
                         "Branch no encontrado: " + id));
-        return toDto(entity);
+        return branchMapper.toDto(entity);
     }
 
     @Override
     public CompanyBranchDTO create(CompanyBranchDTO dto) {
-        CompanyBranch entity = toEntity(dto);
+        CompanyBranch entity = branchMapper.toEntity(dto);
+        Company cmp = companyRepo.findById(dto.getCompanyId())
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Company no encontrado: " + dto.getCompanyId()));
+        entity.setBrcCmp(cmp);
         CompanyBranch saved = repo.save(entity);
-        return toDto(saved);
+        return branchMapper.toDto(saved);
     }
 
     @Override
@@ -54,12 +62,10 @@ public class CompanyBranchServiceImpl implements CompanyBranchService {
                 .orElseThrow(() -> new IllegalArgumentException(
                         "Branch no encontrado: " + id));
 
-        existing.setBrcName(dto.getName());
-        existing.setBrcAddress(dto.getAddress());
-        existing.setBrcPhone(dto.getPhone());
+        branchMapper.updateEntity(dto, existing);
         // Nota: la compañía no se actualiza para preservar la integridad referencial
         CompanyBranch updated = repo.save(existing);
-        return toDto(updated);
+        return branchMapper.toDto(updated);
     }
 
     @Override
@@ -67,28 +73,4 @@ public class CompanyBranchServiceImpl implements CompanyBranchService {
         repo.deleteById(id);
     }
 
-    private CompanyBranchDTO toDto(CompanyBranch e) {
-        return CompanyBranchDTO.builder()
-                .id(e.getId())
-                .companyId(e.getBrcCmp().getId())
-                .name(e.getBrcName())
-                .address(e.getBrcAddress())
-                .phone(e.getBrcPhone())
-                .createdAt(e.getBrcCreatedAt())
-                .updatedAt(e.getBrcUpdatedAt())
-                .build();
-    }
-
-    private CompanyBranch toEntity(CompanyBranchDTO d) {
-        CompanyBranch e = new CompanyBranch();
-        Company cmp = companyRepo.findById(d.getCompanyId())
-                .orElseThrow(() -> new IllegalArgumentException(
-                        "Company no encontrado: " + d.getCompanyId()));
-        e.setBrcCmp(cmp);
-        e.setBrcName(d.getName());
-        e.setBrcAddress(d.getAddress());
-        e.setBrcPhone(d.getPhone());
-        // createdAt/updatedAt se manejan por defecto en BD
-        return e;
-    }
 }
