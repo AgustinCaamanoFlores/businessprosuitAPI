@@ -3,10 +3,10 @@ package com.businessprosuite.api.impl.inventory;
 import com.businessprosuite.api.dto.inventory.InventoryLotDTO;
 import com.businessprosuite.api.model.inventory.InventoryLot;
 import com.businessprosuite.api.model.inventory.InventoryProduct;
-import com.businessprosuite.api.model.inventory.InventoryWerehouse;
+import com.businessprosuite.api.model.inventory.InventoryWarehouse;
 import com.businessprosuite.api.repository.inventory.InventoryLotRepository;
 import com.businessprosuite.api.repository.inventory.InventoryProductRepository;
-import com.businessprosuite.api.repository.inventory.InventoryWerehouseRepository;
+import com.businessprosuite.api.repository.inventory.InventoryWarehouseRepository;
 import com.businessprosuite.api.service.inventory.InventoryLotService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class InventoryLotServiceImpl implements InventoryLotService {
 
     private final InventoryLotRepository lotRepo;
     private final InventoryProductRepository productRepo;
-    private final InventoryWerehouseRepository warehouseRepo;
+    private final InventoryWarehouseRepository warehouseRepo;
 
     @Override
     public List<InventoryLotDTO> findAll() {
@@ -50,8 +50,8 @@ public class InventoryLotServiceImpl implements InventoryLotService {
         lot.setInvLotExpirationDate(dto.getExpirationDate());
         lot.setInvLotQuantity(dto.getQuantity());
         if (dto.getWarehouseId() != null) {
-            InventoryWerehouse wh = warehouseRepo.findById(dto.getWarehouseId())
-                    .orElseThrow(() -> new EntityNotFoundException("InventoryWerehouse not found with id " + dto.getWarehouseId()));
+            InventoryWarehouse wh = warehouseRepo.findById(dto.getWarehouseId())
+                    .orElseThrow(() -> new EntityNotFoundException("InventoryWarehouse not found with id " + dto.getWarehouseId()));
             lot.setInvLotWhs(wh);
         }
         lot.setInvLotCreatedAt(LocalDateTime.now());
@@ -70,8 +70,8 @@ public class InventoryLotServiceImpl implements InventoryLotService {
         lot.setInvLotExpirationDate(dto.getExpirationDate());
         lot.setInvLotQuantity(dto.getQuantity());
         if (dto.getWarehouseId() != null) {
-            InventoryWerehouse wh = warehouseRepo.findById(dto.getWarehouseId())
-                    .orElseThrow(() -> new EntityNotFoundException("InventoryWerehouse not found with id " + dto.getWarehouseId()));
+            InventoryWarehouse wh = warehouseRepo.findById(dto.getWarehouseId())
+                    .orElseThrow(() -> new EntityNotFoundException("InventoryWarehouse not found with id " + dto.getWarehouseId()));
             lot.setInvLotWhs(wh);
         } else {
             lot.setInvLotWhs(null);

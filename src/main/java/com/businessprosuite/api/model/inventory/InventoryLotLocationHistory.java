@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import com.businessprosuite.api.model.inventory.InventoryWarehouse;
 
 import java.time.LocalDateTime;
 
@@ -28,7 +29,7 @@ public class InventoryLotLocationHistory {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "whs_id", nullable = false)
-    private InventoryWerehouse whs;
+    private InventoryWarehouse whs;
 
     @NotNull
     @ColumnDefault("CURRENT_TIMESTAMP")

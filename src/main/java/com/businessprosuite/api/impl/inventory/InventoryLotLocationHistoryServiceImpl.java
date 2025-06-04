@@ -3,10 +3,10 @@ package com.businessprosuite.api.impl.inventory;
 import com.businessprosuite.api.dto.inventory.InventoryLotLocationHistoryDTO;
 import com.businessprosuite.api.model.inventory.InventoryLotLocationHistory;
 import com.businessprosuite.api.model.inventory.InventoryLot;
-import com.businessprosuite.api.model.inventory.InventoryWerehouse;
+import com.businessprosuite.api.model.inventory.InventoryWarehouse;
 import com.businessprosuite.api.repository.inventory.InventoryLotLocationHistoryRepository;
 import com.businessprosuite.api.repository.inventory.InventoryLotRepository;
-import com.businessprosuite.api.repository.inventory.InventoryWerehouseRepository;
+import com.businessprosuite.api.repository.inventory.InventoryWarehouseRepository;
 import com.businessprosuite.api.service.inventory.InventoryLotLocationHistoryService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class InventoryLotLocationHistoryServiceImpl implements InventoryLotLocat
 
     private final InventoryLotLocationHistoryRepository historyRepo;
     private final InventoryLotRepository lotRepo;
-    private final InventoryWerehouseRepository whRepo;
+    private final InventoryWarehouseRepository whRepo;
 
     @Override
     public List<InventoryLotLocationHistoryDTO> findAll() {
@@ -44,8 +44,8 @@ public class InventoryLotLocationHistoryServiceImpl implements InventoryLotLocat
     public InventoryLotLocationHistoryDTO create(InventoryLotLocationHistoryDTO dto) {
         InventoryLot lot = lotRepo.findById(dto.getLotId())
                 .orElseThrow(() -> new EntityNotFoundException("InventoryLot not found with id " + dto.getLotId()));
-        InventoryWerehouse wh = whRepo.findById(dto.getWarehouseId())
-                .orElseThrow(() -> new EntityNotFoundException("InventoryWerehouse not found with id " + dto.getWarehouseId()));
+        InventoryWarehouse wh = whRepo.findById(dto.getWarehouseId())
+                .orElseThrow(() -> new EntityNotFoundException("InventoryWarehouse not found with id " + dto.getWarehouseId()));
 
         InventoryLotLocationHistory history = new InventoryLotLocationHistory();
         history.setInventoryLot(lot);
@@ -62,8 +62,8 @@ public class InventoryLotLocationHistoryServiceImpl implements InventoryLotLocat
                 .orElseThrow(() -> new EntityNotFoundException("InventoryLotLocationHistory not found with id " + id));
         InventoryLot lot = lotRepo.findById(dto.getLotId())
                 .orElseThrow(() -> new EntityNotFoundException("InventoryLot not found with id " + dto.getLotId()));
-        InventoryWerehouse wh = whRepo.findById(dto.getWarehouseId())
-                .orElseThrow(() -> new EntityNotFoundException("InventoryWerehouse not found with id " + dto.getWarehouseId()));
+        InventoryWarehouse wh = whRepo.findById(dto.getWarehouseId())
+                .orElseThrow(() -> new EntityNotFoundException("InventoryWarehouse not found with id " + dto.getWarehouseId()));
 
         history.setInventoryLot(lot);
         history.setWhs(wh);

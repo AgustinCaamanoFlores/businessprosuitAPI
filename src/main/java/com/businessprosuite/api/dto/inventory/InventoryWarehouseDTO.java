@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class InventoryWerehouseDTO {
+public class InventoryWarehouseDTO {
     private Integer id;
     private String name;
     private String address;

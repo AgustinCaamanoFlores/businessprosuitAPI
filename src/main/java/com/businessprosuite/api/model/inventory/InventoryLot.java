@@ -7,6 +7,7 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import com.businessprosuite.api.model.inventory.InventoryWarehouse;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -47,7 +48,7 @@ public class InventoryLot {
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.SET_NULL)
     @JoinColumn(name = "inv_lot_whs_id")
-    private InventoryWerehouse invLotWhs;
+    private InventoryWarehouse invLotWhs;
 
     @NotNull
     @ColumnDefault("CURRENT_TIMESTAMP")
