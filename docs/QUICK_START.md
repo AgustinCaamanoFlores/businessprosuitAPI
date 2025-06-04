@@ -1,175 +1,152 @@
-# 🚀 Guía de Inicio Rápido - BusinessProSuite API
+# 🚀 Quick Start Guide - BusinessProSuite API V0.2
 
-## ⚡ Inicio en 5 minutos
+![Version](https://img.shields.io/badge/Version-V0.2-brightgreen)
+![Java](https://img.shields.io/badge/Java-17-orange)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.4-green)
 
-### 1️⃣ Ejecutar la aplicación
+## ⚡ Start in 5 minutes
+
+Esta guía te permite tener BusinessProSuite API funcionando en **menos de 5 minutos**.
+
+## 📋 Prerequisites
+
+- ☑️ **Java 17** o superior
+- ☑️ **Git** instalado
+- ☑️ **Puerto 8080** disponible
+
+## 🚀 Step 1: Clone & Run
+
 ```bash
-# Desde la raíz del proyecto
+# Clone repository
+git clone <repository-url>
+cd BusinessProSuiteAPI
+
+# Run application
 ./gradlew bootRun
 ```
 
-### 2️⃣ Verificar que funciona
-```bash
-curl http://localhost:8080/auth/health
+**Windows users:**
+```cmd
+gradlew.bat bootRun
 ```
 
-### 3️⃣ Registrar tu primera empresa y usuario
+## 🎯 Step 2: Verify Installation
+
+### ✅ Health Check
+```bash
+curl http://localhost:8080/actuator/health
+```
+**Expected response:**
+```json
+{"status":"UP"}
+```
+
+### 📚 Access Swagger UI
+Open: http://localhost:8080/swagger-ui/index.html
+
+## 🔐 Step 3: Test Authentication
+
+### Register New User
 ```bash
 curl -X POST http://localhost:8080/auth/register \
   -H "Content-Type: application/json" \
   -d '{
     "username": "admin",
-    "email": "admin@miempresa.com",
-    "password": "MiPassword123!",
-    "fullName": "Administrador Principal",
-    "companyName": "Mi Empresa S.A.",
-    "companyEmail": "contacto@miempresa.com",
-    "companyAddress": "Calle Principal 123",
-    "companyPhone": "+34123456789",
-    "countryCode": "ES"
+    "email": "admin@empresa.com", 
+    "password": "MySecurePass123!",
+    "firstName": "Admin",
+    "lastName": "User",
+    "companyName": "Mi Empresa",
+    "companyEmail": "contact@empresa.com"
   }'
 ```
 
-### 4️⃣ Iniciar sesión
+### Login & Get Token
 ```bash
 curl -X POST http://localhost:8080/auth/login \
   -H "Content-Type: application/json" \
   -d '{
     "username": "admin",
-    "password": "MiPassword123!"
+    "password": "MySecurePass123!"
   }'
 ```
 
-### 5️⃣ Usar el token en requests protegidos
+**Save the token from response for next steps!**
+
+### Test Protected Endpoint
 ```bash
-# Reemplaza {TOKEN} con el token del paso anterior
 curl -X GET http://localhost:8080/api/companies \
-  -H "Authorization: Bearer {TOKEN}"
+  -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE"
 ```
 
----
+## 🎉 Success! 
 
-## 🧪 Prueba Automática
+Si todos los pasos funcionaron correctamente, tienes:
+- ✅ API ejecutándose en puerto 8080
+- ✅ Base de datos H2 funcionando
+- ✅ JWT authentication configurado
+- ✅ Swagger UI accesible
+- ✅ Endpoints de prueba respondiendo
 
-Ejecuta el script de pruebas completo:
+## 🔍 Next Steps
+
+### 📖 Explore API
+- **Swagger UI**: http://localhost:8080/swagger-ui/index.html
+- **H2 Console**: http://localhost:8080/h2-console
+  - JDBC URL: `jdbc:h2:mem:testdb`
+  - Username: `sa` 
+  - Password: (leave empty)
+
+### 📚 Documentation
+- **[API Reference](API_DOCUMENTATION.md)** - Complete endpoint documentation
+- **[Integration Guide](how-to-use-it/complete-integration-guide_EN.md)** - Code examples
+- **[Local Setup](set-up-API/local-setup-guide_EN.md)** - Detailed setup guide
+
+### 🏗️ Development
+- **[How to Read Docs](help/how-to-read-documentation_EN.md)** - Navigation guide
+- **[Completed Features](completed/features-implemented_EN.md)** - What's implemented
+- **[Roadmap](next-changes/general-roadmap_EN.md)** - Future plans
+
+## ❗ Troubleshooting
+
+### Port 8080 in use
 ```bash
-chmod +x test-auth-api.sh
-./test-auth-api.sh
+# Find process using port 8080
+lsof -ti:8080
+
+# Kill process (replace PID)
+kill -9 <PID>
 ```
 
----
+### Java version issues
+```bash
+# Check Java version
+java -version
 
-## 📋 Endpoints Principales
-
-### 🔐 Autenticación (Público)
-- `POST /auth/register` - Registrar usuario y empresa
-- `POST /auth/login` - Iniciar sesión  
-- `GET /auth/verify` - Verificar token
-- `GET /auth/health` - Estado del servicio
-
-### 🏢 Empresas (Requiere Token)
-- `GET /api/companies` - Listar empresas
-- `POST /api/companies` - Crear empresa
-- `GET /api/companies/{id}` - Obtener empresa
-- `PUT /api/companies/{id}` - Actualizar empresa
-
-### 👥 Usuarios (Requiere Token)
-- `GET /api/security-users` - Listar usuarios
-- `POST /api/security-users` - Crear usuario
-- `GET /api/security-users/{id}` - Obtener usuario
-
-### 🏪 Clientes (Requiere Token)  
-- `GET /api/customers` - Listar clientes
-- `POST /api/customers` - Crear cliente
-
----
-
-## 🔑 Formato de Autenticación
-
-Todos los endpoints protegidos requieren el header:
-```
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+# Should show Java 17+
 ```
 
----
+### Database connection issues
+- The API uses H2 in-memory database by default
+- No additional setup required for quick start
+- Data is reset on each restart
 
-## ⚙️ Configuración Base de Datos
+### Build issues
+```bash
+# Clean and rebuild
+./gradlew clean build
 
-1. **Crear base de datos MySQL:**
-```sql
-CREATE DATABASE BusinessProSuite;
+# Skip tests if needed
+./gradlew bootRun --no-daemon
 ```
 
-2. **Configurar connection en application.properties:**
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/BusinessProSuite
-spring.datasource.username=root
-spring.datasource.password=tu_password
-```
+## 💡 Need More Help?
+
+1. **Detailed Setup**: [Local Setup Guide](set-up-API/local-setup-guide_EN.md)
+2. **API Usage**: [Integration Guide](how-to-use-it/complete-integration-guide_EN.md)
+3. **Documentation Help**: [How to Read Docs](help/how-to-read-documentation_EN.md)
 
 ---
 
-## 🛠️ Ejemplo Completo con JavaScript
-
-```javascript
-// 1. Registro
-const registerResponse = await fetch('http://localhost:8080/auth/register', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    username: "admin",
-    email: "admin@empresa.com", 
-    password: "Password123!",
-    fullName: "Administrador",
-    companyName: "Mi Empresa",
-    companyEmail: "contacto@empresa.com",
-    companyAddress: "Calle 123",
-    companyPhone: "+34123456789",
-    countryCode: "ES"
-  })
-});
-
-// 2. Login  
-const loginResponse = await fetch('http://localhost:8080/auth/login', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    username: "admin",
-    password: "Password123!"
-  })
-});
-
-const { token } = await loginResponse.json();
-
-// 3. Usar API protegida
-const companiesResponse = await fetch('http://localhost:8080/api/companies', {
-  headers: { 'Authorization': `Bearer ${token}` }
-});
-```
-
----
-
-## ❓ Solución de Problemas
-
-### Error 400 en registro
-- Verificar que el password cumple los requisitos
-- Verificar que el email tenga formato válido
-- Verificar que el país "ES" existe en la BD
-
-### Error 401 en login
-- Verificar username y password
-- Verificar que el usuario esté activo
-
-### Error 404
-- Verificar que la aplicación esté ejecutándose en puerto 8080
-- Verificar la URL del endpoint
-
----
-
-## 📖 Documentación Completa
-
-Para documentación detallada: [API_DOCUMENTATION.md](./API_DOCUMENTATION.md)
-
----
-
-*¡Listo para empezar! 🎉* 
+**Quick Start Complete!** 🎉  
+Ready to explore the API → **[Swagger UI](http://localhost:8080/swagger-ui/index.html)** 

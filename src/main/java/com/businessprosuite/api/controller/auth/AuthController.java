@@ -2,7 +2,6 @@ package com.businessprosuite.api.controller.auth;
 
 import com.businessprosuite.api.dto.auth.*;
 import com.businessprosuite.api.service.auth.AuthService;
-import com.businessprosuite.api.util.JwtUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -45,7 +44,6 @@ import java.util.Map;
 public class AuthController {
     
     private final AuthService authService;
-    private final JwtUtil jwtUtil;
     
     @Operation(
         summary = "Registrar nuevo usuario y empresa",

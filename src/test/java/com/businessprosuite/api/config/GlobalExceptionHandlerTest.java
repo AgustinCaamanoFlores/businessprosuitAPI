@@ -155,9 +155,7 @@ class GlobalExceptionHandlerTest {
         // Given
         MethodArgumentTypeMismatchException exception = mock(MethodArgumentTypeMismatchException.class);
         when(exception.getName()).thenReturn("testParam");
-        @SuppressWarnings("unchecked")
-        Class<String> stringClass = (Class<String>) String.class;
-        when(exception.getRequiredType()).thenReturn(stringClass);
+        doReturn(String.class).when(exception).getRequiredType();
 
         // When
         ResponseEntity<ApiErrorResponse> response = globalExceptionHandler

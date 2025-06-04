@@ -1,3 +1,59 @@
-/gradlew text eol=lf
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Java files
+*.java text diff=java
+*.gradle text
+*.gradle.kts text
+*.properties text
+*.yml text
+*.yaml text
+
+# Documentation files
+*.md text
+*.txt text
+*.rst text
+
+# Scripts
+*.sh text eol=lf
 *.bat text eol=crlf
+
+# Binary files
 *.jar binary
+*.war binary
+*.ear binary
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg binary
+
+# Log files
+*.log binary
+
+# IDE files
+.DS_Store binary
+*.iml text
+*.ipr text
+*.iws text
+
+# Build outputs
+build/ export-ignore
+target/ export-ignore
+out/ export-ignore
+.gradle/ export-ignore
+
+# Language-specific settings for documentation
+docs/**/*.md linguist-language=Markdown
+docs/**/*_ES.md linguist-language=Markdown
+docs/**/*_EN.md linguist-language=Markdown
+
+# SQL files in documentation should be treated as text
+*.sql text
+
+# Configuration files
+application*.yml text
+application*.yaml text
+application*.properties text
