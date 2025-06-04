@@ -11,6 +11,7 @@ import com.businessprosuite.api.service.security.SecurityUserService;
 import com.businessprosuite.api.mapper.SecurityUserMapper;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +27,7 @@ public class SecurityUserServiceImpl implements SecurityUserService {
     private final SecurityRoleRepository roleRepo;
     private final CompanyRepository companyRepo;
     private final SecurityUserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<SecurityUserDTO> findAll() {
@@ -49,6 +51,7 @@ public class SecurityUserServiceImpl implements SecurityUserService {
                 .orElseThrow(() -> new EntityNotFoundException("Company not found with id " + dto.getCompanyId()));
 
         SecurityUser u = userMapper.toEntity(dto);
+        u.setSecusPassword(passwordEncoder.encode(dto.getPassword()));
         u.setSecusRole(role);
         u.setSecusCmp(cmp);
         u.setSecusCreatedAt(LocalDateTime.now());
@@ -68,6 +71,7 @@ public class SecurityUserServiceImpl implements SecurityUserService {
                 .orElseThrow(() -> new EntityNotFoundException("Company not found with id " + dto.getCompanyId()));
 
         userMapper.updateEntity(dto, u);
+        u.setSecusPassword(passwordEncoder.encode(dto.getPassword()));
         u.setSecusRole(role);
         u.setSecusCmp(cmp);
         u.setSecusUpdatedAt(LocalDateTime.now());
