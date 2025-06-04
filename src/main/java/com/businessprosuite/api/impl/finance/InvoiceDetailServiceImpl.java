@@ -4,6 +4,7 @@ import com.businessprosuite.api.dto.finance.InvoiceDetailDTO;
 import com.businessprosuite.api.model.finance.InvoiceDetail;
 import com.businessprosuite.api.model.inventory.InventoryProduct;
 import com.businessprosuite.api.model.finance.Invoice;
+import com.businessprosuite.api.mapper.InvoiceDetailMapper;
 import com.businessprosuite.api.repository.finance.InvoiceDetailRepository;
 import com.businessprosuite.api.repository.inventory.InventoryProductRepository;
 import com.businessprosuite.api.repository.finance.InvoiceRepository;
@@ -26,11 +27,12 @@ public class InvoiceDetailServiceImpl implements InvoiceDetailService {
     private final InvoiceDetailRepository detailRepo;
     private final InvoiceRepository invoiceRepo;
     private final InventoryProductRepository productRepo;
+    private final InvoiceDetailMapper       detailMapper;
 
     @Override
     public List<InvoiceDetailDTO> findAll() {
         return detailRepo.findAll().stream()
-                .map(this::toDto)
+                .map(detailMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -38,7 +40,7 @@ public class InvoiceDetailServiceImpl implements InvoiceDetailService {
     public InvoiceDetailDTO findById(Integer id) {
         InvoiceDetail detail = detailRepo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("InvoiceDetail not found with id " + id));
-        return toDto(detail);
+        return detailMapper.toDto(detail);
     }
 
     @Override
@@ -48,17 +50,15 @@ public class InvoiceDetailServiceImpl implements InvoiceDetailService {
         InventoryProduct product = productRepo.findById(dto.getProductId())
                 .orElseThrow(() -> new EntityNotFoundException("InventoryProduct not found with id " + dto.getProductId()));
 
-        InvoiceDetail detail = new InvoiceDetail();
+        InvoiceDetail detail = detailMapper.toEntity(dto);
         detail.setFinInvdInv(invoice);
         detail.setFinInvdProd(product);
-        detail.setFinInvdQuantity(dto.getQuantity());
-        detail.setFinInvdUnitPrice(dto.getUnitPrice());
         BigDecimal total = dto.getUnitPrice().multiply(BigDecimal.valueOf(dto.getQuantity()));
         detail.setFinInvdTotalPrice(total);
         detail.setFinInvdCreatedAt(LocalDateTime.now());
 
         InvoiceDetail saved = detailRepo.save(detail);
-        return toDto(saved);
+        return detailMapper.toDto(saved);
     }
 
     @Override
@@ -72,14 +72,13 @@ public class InvoiceDetailServiceImpl implements InvoiceDetailService {
 
         detail.setFinInvdInv(invoice);
         detail.setFinInvdProd(product);
-        detail.setFinInvdQuantity(dto.getQuantity());
-        detail.setFinInvdUnitPrice(dto.getUnitPrice());
+        detailMapper.updateEntity(dto, detail);
         BigDecimal total = dto.getUnitPrice().multiply(BigDecimal.valueOf(dto.getQuantity()));
         detail.setFinInvdTotalPrice(total);
         // createdAt remains unchanged
 
         InvoiceDetail updated = detailRepo.save(detail);
-        return toDto(updated);
+        return detailMapper.toDto(updated);
     }
 
     @Override
@@ -90,15 +89,4 @@ public class InvoiceDetailServiceImpl implements InvoiceDetailService {
         detailRepo.deleteById(id);
     }
 
-    private InvoiceDetailDTO toDto(InvoiceDetail detail) {
-        return InvoiceDetailDTO.builder()
-                .id(detail.getId())
-                .invoiceId(detail.getFinInvdInv().getId())
-                .productId(detail.getFinInvdProd().getId())
-                .quantity(detail.getFinInvdQuantity())
-                .unitPrice(detail.getFinInvdUnitPrice())
-                .totalPrice(detail.getFinInvdTotalPrice())
-                .createdAt(detail.getFinInvdCreatedAt())
-                .build();
-    }
 }
