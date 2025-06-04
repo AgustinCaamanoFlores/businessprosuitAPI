@@ -4,6 +4,7 @@ import com.businessprosuite.api.dto.config.ConfigCountryDTO;
 import com.businessprosuite.api.model.config.ConfigCountry;
 import com.businessprosuite.api.repository.config.ConfigCountryRepository;
 import com.businessprosuite.api.service.config.ConfigCountryService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,7 @@ public class ConfigCountryServiceImplementation implements ConfigCountryService 
     }
 
     @Override
+    @Cacheable("configCountries")
     public List<ConfigCountryDTO> findAll() {
         return repo.findAll().stream()
                 .map(this::toDto)

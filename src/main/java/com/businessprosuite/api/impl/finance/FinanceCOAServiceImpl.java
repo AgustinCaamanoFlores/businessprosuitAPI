@@ -8,6 +8,7 @@ import com.businessprosuite.api.repository.finance.FinanceCOARepository;
 import com.businessprosuite.api.service.finance.FinanceCOAService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +25,7 @@ public class FinanceCOAServiceImpl implements FinanceCOAService {
     private final CompanyRepository    companyRepo;
 
     @Override
+    @Cacheable("financeCoas")
     public List<FinanceCOADTO> findAll() {
         return coaRepo.findAll().stream()
                 .map(this::toDto)

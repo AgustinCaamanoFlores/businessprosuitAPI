@@ -6,6 +6,7 @@ import com.businessprosuite.api.repository.finance.CurrencyRepository;
 import com.businessprosuite.api.service.finance.CurrencyService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,7 @@ public class CurrencyServiceImpl implements CurrencyService {
     private final CurrencyRepository repo;
 
     @Override
+    @Cacheable("currencies")
     public List<CurrencyDTO> findAll() {
         return repo.findAll()
                 .stream()
