@@ -306,21 +306,19 @@ aws elasticbeanstalk update-environment \
 ### **Step 1: Create Docker Image**
 
 ```dockerfile
-# Create Dockerfile
-cat > Dockerfile <<EOF
-FROM amazoncorretto:17-alpine
+# Stage 2: Create the runtime image
+FROM openjdk:17-jre-slim
 
 WORKDIR /app
 
-COPY build/libs/BusinessProSuiteAPI-0.0.1-SNAPSHOT.jar app.jar
+# Copy the JAR file from the build stage
+COPY --from=build /app/build/libs/*.jar app.jar
 
-EXPOSE 8080
-
+# Set environment variables
 ENV SPRING_PROFILES_ACTIVE=prod
 ENV JWT_SECRET=default-secret-key
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
-EOF
 ```
 
 ### **Step 2: Build and Push to ECR**

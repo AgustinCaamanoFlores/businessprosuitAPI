@@ -2,21 +2,26 @@
 * text=auto
 
 # Java files
-*.java text diff=java
-*.gradle text
-*.gradle.kts text
-*.properties text
-*.yml text
-*.yaml text
+*.java text diff=java linguist-language=Java
+*.gradle text linguist-language=Gradle
+*.gradle.kts text linguist-language=Gradle
+*.properties text linguist-language=Properties
+*.yml text linguist-language=YAML
+*.yaml text linguist-language=YAML
 
-# Documentation files
-*.md text
-*.txt text
-*.rst text
+# Documentation files - Explicitly mark as Markdown
+*.md text linguist-language=Markdown linguist-detectable=true
+*.txt text linguist-language=Text
+*.rst text linguist-language=reStructuredText
+
+# Configuration files
+application*.yml text linguist-language=YAML
+application*.yaml text linguist-language=YAML
+application*.properties text linguist-language=Properties
 
 # Scripts
-*.sh text eol=lf
-*.bat text eol=crlf
+*.sh text eol=lf linguist-language=Shell
+*.bat text eol=crlf linguist-language=Batchfile
 
 # Binary files
 *.jar binary
@@ -35,9 +40,9 @@
 
 # IDE files
 .DS_Store binary
-*.iml text
-*.ipr text
-*.iws text
+*.iml text linguist-language=XML
+*.ipr text linguist-language=XML
+*.iws text linguist-language=XML
 
 # Build outputs
 build/ export-ignore
@@ -46,14 +51,21 @@ out/ export-ignore
 .gradle/ export-ignore
 
 # Language-specific settings for documentation
-docs/**/*.md linguist-language=Markdown
-docs/**/*_ES.md linguist-language=Markdown
-docs/**/*_EN.md linguist-language=Markdown
+docs/**/*.md linguist-language=Markdown linguist-detectable=true
+docs/**/*_ES.md linguist-language=Markdown linguist-detectable=true
+docs/**/*_EN.md linguist-language=Markdown linguist-detectable=true
+
+# Specific problematic files - Force Markdown detection
+docs/CONEXION_API.md linguist-language=Markdown linguist-detectable=true
+docs/API_DOCUMENTATION.md linguist-language=Markdown linguist-detectable=true
+docs/MODULARIZATION_ROADMAP.md linguist-language=Markdown linguist-detectable=true
 
 # SQL files in documentation should be treated as text
-*.sql text
+*.sql text linguist-language=SQL
 
-# Configuration files
-application*.yml text
-application*.yaml text
-application*.properties text
+# Docker files
+Dockerfile text linguist-language=Dockerfile
+*.dockerfile text linguist-language=Dockerfile
+
+# JSON files
+*.json text linguist-language=JSON

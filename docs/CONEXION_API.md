@@ -781,6 +781,17 @@ pip install aiohttp  # Para async/await
 ```
 
 ### Java
+```bash
+# Maven
+mvn dependency:add -DgroupId=com.squareup.okhttp3 -DartifactId=okhttp -Dversion=4.12.0
+mvn dependency:add -DgroupId=com.fasterxml.jackson.core -DartifactId=jackson-databind -Dversion=2.16.0
+
+# Gradle
+implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.0'
+```
+
+**Maven dependencies (pom.xml):**
 ```xml
 <!-- Maven dependencies -->
 <dependency>
