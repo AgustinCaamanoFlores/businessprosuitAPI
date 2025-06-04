@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.ArgumentCaptor;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import com.businessprosuite.api.mapper.SecurityUserMapper;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -34,6 +35,8 @@ class SecurityUserServiceTest {
     private CompanyRepository companyRepo;
     @Mock
     private PasswordEncoder passwordEncoder;
+    @Mock
+    private SecurityUserMapper userMapper;
 
     @InjectMocks
     private SecurityUserServiceImpl service;
@@ -50,6 +53,7 @@ class SecurityUserServiceTest {
         user.setSecusRole(role);
         user.setSecusCmp(cmp);
         when(userRepo.findById(1)).thenReturn(Optional.of(user));
+        when(userMapper.toDto(user)).thenReturn(SecurityUserDTO.builder().id(1).build());
 
         SecurityUserDTO dto = service.findById(1);
 
@@ -80,6 +84,8 @@ class SecurityUserServiceTest {
         when(roleRepo.findById(1)).thenReturn(Optional.of(role));
         when(companyRepo.findById(2)).thenReturn(Optional.of(company));
         when(passwordEncoder.encode("plain")).thenReturn("encoded");
+        SecurityUser mapped = new SecurityUser();
+        when(userMapper.toEntity(dto)).thenReturn(mapped);
 
         SecurityUser saved = new SecurityUser();
         saved.setId(10);
@@ -92,6 +98,13 @@ class SecurityUserServiceTest {
 
         ArgumentCaptor<SecurityUser> captor = ArgumentCaptor.forClass(SecurityUser.class);
         when(userRepo.save(any(SecurityUser.class))).thenReturn(saved);
+        when(userMapper.toDto(saved)).thenReturn(SecurityUserDTO.builder()
+                .id(10)
+                .name("user")
+                .password("encoded")
+                .roleId(1)
+                .companyId(2)
+                .build());
 
         SecurityUserDTO result = service.create(dto);
 
@@ -124,6 +137,19 @@ class SecurityUserServiceTest {
         when(roleRepo.findById(1)).thenReturn(Optional.of(role));
         when(companyRepo.findById(2)).thenReturn(Optional.of(company));
         when(passwordEncoder.encode("plain2")).thenReturn("encoded2");
+        doAnswer(inv -> {
+            SecurityUserDTO d = inv.getArgument(0);
+            SecurityUser e = inv.getArgument(1);
+            e.setSecusName(d.getName());
+            return null;
+        }).when(userMapper).updateEntity(any(SecurityUserDTO.class), any(SecurityUser.class));
+        when(userMapper.toDto(existing)).thenReturn(SecurityUserDTO.builder()
+                .id(5)
+                .name("new")
+                .password("encoded2")
+                .roleId(1)
+                .companyId(2)
+                .build());
 
         ArgumentCaptor<SecurityUser> captor = ArgumentCaptor.forClass(SecurityUser.class);
         when(userRepo.save(any(SecurityUser.class))).thenReturn(existing);
