@@ -10,6 +10,7 @@ import com.businessprosuite.api.repository.company.CompanyRepository;
 import com.businessprosuite.api.service.security.SecurityUserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +25,7 @@ public class SecurityUserServiceImpl implements SecurityUserService {
     private final SecurityUserRepository userRepo;
     private final SecurityRoleRepository roleRepo;
     private final CompanyRepository companyRepo;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<SecurityUserDTO> findAll() {
@@ -48,7 +50,7 @@ public class SecurityUserServiceImpl implements SecurityUserService {
 
         SecurityUser u = new SecurityUser();
         u.setSecusName(dto.getName());
-        u.setSecusPassword(dto.getPassword());
+        u.setSecusPassword(passwordEncoder.encode(dto.getPassword()));
         u.setSecusEmail(dto.getEmail());
         u.setSecusAvailable(dto.getAvailable());
         u.setSecusLastLogin(dto.getLastLogin());
@@ -77,7 +79,7 @@ public class SecurityUserServiceImpl implements SecurityUserService {
                 .orElseThrow(() -> new EntityNotFoundException("Company not found with id " + dto.getCompanyId()));
 
         u.setSecusName(dto.getName());
-        u.setSecusPassword(dto.getPassword());
+        u.setSecusPassword(passwordEncoder.encode(dto.getPassword()));
         u.setSecusEmail(dto.getEmail());
         u.setSecusAvailable(dto.getAvailable());
         u.setSecusLastLogin(dto.getLastLogin());
