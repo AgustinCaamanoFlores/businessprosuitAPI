@@ -1,15 +1,28 @@
-# 🌐 Guía de Conexión a BusinessProSuite API
+---
+title: "BusinessProSuite API - Guía de Conexión"
+description: "Guía completa para conectar con la API de BusinessProSuite desde diferentes lenguajes"
+language: "markdown"
+type: "documentation"
+---
 
-## 📋 Tabla de Contenidos
+<!-- Markdown file with code examples -->
 
-- [Configuración Inicial](#configuración-inicial)
-- [Autenticación](#autenticación)
-- [Ejemplos por Lenguaje](#ejemplos-por-lenguaje)
-- [Herramientas de Testing](#herramientas-de-testing)
-- [Librerías y SDKs](#librerías-y-sdks)
-- [Manejo de Errores](#manejo-de-errores)
-- [Casos de Uso Completos](#casos-de-uso-completos)
-- [Mejores Prácticas](#mejores-prácticas)
+# 🔌 Guía de Conexión a BusinessProSuite API
+
+![API](https://img.shields.io/badge/API-V0.2-blue)
+![Status](https://img.shields.io/badge/Status-Active-green)
+![Documentation](https://img.shields.io/badge/Docs-100%25-brightgreen)
+
+## 📋 Índice de Contenidos
+
+- [🚀 Configuración Inicial](#configuración-inicial)
+- [🔐 Autenticación](#autenticación)
+- [💻 Ejemplos por Lenguaje](#ejemplos-por-lenguaje)
+- [🧪 Herramientas de Testing](#herramientas-de-testing)
+- [📚 Librerías y SDKs](#librerías-y-sdks)
+- [🚨 Manejo de Errores](#manejo-de-errores)
+- [📖 Casos de Uso Completos](#casos-de-uso-completos)
+- [🏆 Mejores Prácticas](#mejores-prácticas)
 
 ---
 
@@ -316,6 +329,7 @@ except requests.exceptions.RequestException as e:
 
 ### ☕ Java
 
+<!-- JAVA CODE EXAMPLE START -->
 #### Con OkHttp y Jackson
 ```java
 import okhttp3.*;
@@ -406,6 +420,7 @@ System.out.println("Login exitoso: " + loginResult);
 JsonNode companies = api.getCompanies();
 System.out.println("Empresas: " + companies);
 ```
+<!-- JAVA CODE EXAMPLE END -->
 
 ### 🐘 PHP
 
