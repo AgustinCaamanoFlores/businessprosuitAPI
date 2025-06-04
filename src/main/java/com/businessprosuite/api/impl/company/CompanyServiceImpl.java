@@ -9,6 +9,7 @@ import com.businessprosuite.api.repository.company.CompanyRepository;
 import com.businessprosuite.api.repository.config.ConfigCompanyRepository;
 import com.businessprosuite.api.repository.config.ConfigCountryRepository;
 import com.businessprosuite.api.service.company.CompanyService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +33,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
+    @Cacheable("companies")
     public List<CompanyDTO> findAll() {
         return repo.findAll().stream()
                 .map(this::toDto)

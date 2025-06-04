@@ -8,6 +8,7 @@ import com.businessprosuite.api.repository.company.CompanyRepository;
 import com.businessprosuite.api.service.document.DocumentService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +25,7 @@ public class DocumentServiceImpl implements DocumentService {
     private final CompanyRepository companyRepo;
 
     @Override
+    @Cacheable("documents")
     public List<DocumentDTO> findAll() {
         return docRepo.findAll().stream()
                 .map(this::toDto)
