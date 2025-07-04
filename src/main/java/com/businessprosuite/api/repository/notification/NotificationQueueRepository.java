@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface NotificationQueueRepository extends JpaRepository<NotificationQueue, Integer> {
+    java.util.List<NotificationQueue> findBySentFalse();
 }

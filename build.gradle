@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.businessprosuite.api'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 
 java {
     toolchain {
@@ -55,6 +55,12 @@ dependencies {
     // ----------------------------
     implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'com.github.ben-manes.caffeine:caffeine'
+
+    // ----------------------------
+    // AUTHENTICACIÓN MFA
+    // ----------------------------
+    implementation 'org.jboss.aerogear:aerogear-otp-java:1.0.0'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
 
     // ----------------------------
     // JWT (stateless auth)

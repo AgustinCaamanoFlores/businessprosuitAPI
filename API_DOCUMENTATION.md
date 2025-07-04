@@ -13,6 +13,10 @@ Este documento resume los cambios recientes implementados y cómo ejecutar la AP
   - Se añadió gestión de nómina con el nuevo endpoint `/api/hr/payrolls` para crear y consultar pagos a empleados.
 - **Seguridad**
   - Inicio de sesión vía OAuth2 soportado. Al autenticarse con un proveedor externo se devuelve un JWT válido.
+  - Soporte de Autenticación Multifactor (MFA) con códigos TOTP. Nuevos endpoints `/api/mfa/users/{id}/enable` y `/api/mfa/users/{id}/verify`.
+
+- **Notificaciones**
+  - Las notificaciones en cola pueden enviarse por correo usando `/api/notification-queue/dispatch`.
 
 ## Ejecución en macOS (M4 Max)
 

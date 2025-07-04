@@ -105,3 +105,6 @@ Estas tareas implican generar nuevas entidades, servicios y controladores en los
 - **Documentación**: se agregó `API_DOCUMENTATION.md` y se actualizó `README.md` con instrucciones para macOS M4 Max.
 - **HR**: se incorporó gestión de nómina mediante la entidad `Payroll` y el endpoint `/api/hr/payrolls`.
 - **Security**: se añadió inicio de sesión mediante OAuth2 que genera un JWT automáticamente.
+- **Security**: se implementó autenticación multifactor TOTP con nuevos endpoints y servicio `TotpService`.
+- **Notification**: la cola de notificaciones ahora puede despachar correos mediante `/api/notification-queue/dispatch`.
+- **Versión**: primera versión estable etiquetada como `v0.0.1`.

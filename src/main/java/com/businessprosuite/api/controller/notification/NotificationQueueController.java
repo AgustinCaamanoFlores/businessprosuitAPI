@@ -43,4 +43,10 @@ public class NotificationQueueController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/dispatch")
+    public ResponseEntity<Void> dispatch() {
+        service.dispatchPending();
+        return ResponseEntity.accepted().build();
+    }
 }
