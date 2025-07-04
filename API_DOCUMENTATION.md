@@ -11,6 +11,8 @@ Este documento resume los cambios recientes implementados y cómo ejecutar la AP
   - Nuevas entidades de Cuentas por Cobrar (`AccountsReceivable`) y Cuentas por Pagar (`AccountsPayable`) junto a sus controladores REST.
 - **Recursos Humanos**
   - Se añadió gestión de nómina con el nuevo endpoint `/api/hr/payrolls` para crear y consultar pagos a empleados.
+- **Seguridad**
+  - Inicio de sesión vía OAuth2 soportado. Al autenticarse con un proveedor externo se devuelve un JWT válido.
 
 ## Ejecución en macOS (M4 Max)
 

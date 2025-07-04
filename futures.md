@@ -104,3 +104,4 @@ Estas tareas implican generar nuevas entidades, servicios y controladores en los
 - **Finance**: se crearon las entidades `AccountsPayable` y `AccountsReceivable` junto con sus controladores REST.
 - **Documentación**: se agregó `API_DOCUMENTATION.md` y se actualizó `README.md` con instrucciones para macOS M4 Max.
 - **HR**: se incorporó gestión de nómina mediante la entidad `Payroll` y el endpoint `/api/hr/payrolls`.
+- **Security**: se añadió inicio de sesión mediante OAuth2 que genera un JWT automáticamente.

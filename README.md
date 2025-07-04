@@ -35,6 +35,7 @@ El código está organizado por dominios dentro de `com.businessprosuite.api`:
 Cada subpaquete (finance, inventory, user, security, etc.) representa un dominio del negocio.
 
 Desde 2025 se cuenta además con el endpoint `/api/hr/payrolls` para gestionar la nómina de los trabajadores.
+Además se habilitó inicio de sesión mediante OAuth2 para proveedores externos (por ejemplo Google). Configurar las credenciales en `application.properties` usando el prefijo `spring.security.oauth2.client`.
 
 ## Pruebas
 
