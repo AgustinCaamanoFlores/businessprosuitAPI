@@ -43,3 +43,7 @@ Las pruebas unitarias utilizan JUnit 5 y Mockito. Para ejecutarlas:
 ```
 
 Algunos tests pueden requerir dependencias adicionales (por ejemplo Testcontainers) que no están incluidas por defecto.
+
+## Compatibilidad
+
+La API se ha ejecutado correctamente en macOS con procesador M4 Max utilizando Java 17 y Gradle 8.
