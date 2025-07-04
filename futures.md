@@ -108,3 +108,7 @@ Estas tareas implican generar nuevas entidades, servicios y controladores en los
 - **Security**: se implementó autenticación multifactor TOTP con nuevos endpoints y servicio `TotpService`.
 - **Notification**: la cola de notificaciones ahora puede despachar correos mediante `/api/notification-queue/dispatch`.
 - **Versión**: primera versión estable etiquetada como `v0.0.1`.
+- **Versión**: liberada `v0.0.2` con el endpoint `/api/version` para consultar la versión de la API.
+- **Versión**: `/api/info` muestra la versión y descripción configuradas.
+- **Versión**: `/api/info` ahora también expone el entorno mediante `app.environment`.
+- **Versión**: liberada `v0.0.3` con soporte de variables `APP_VERSION` y `APP_DESCRIPTION`.

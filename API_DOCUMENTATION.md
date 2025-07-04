@@ -17,6 +17,12 @@ Este documento resume los cambios recientes implementados y cómo ejecutar la AP
 
 - **Notificaciones**
   - Las notificaciones en cola pueden enviarse por correo usando `/api/notification-queue/dispatch`.
+- **Versión**
+  - El endpoint `/api/version` devuelve la versión configurada.
+  - `/api/info` ahora muestra versión, descripción y el entorno.
+  - El entorno se define con la variable de entorno `APP_ENVIRONMENT`.
+  - La versión y descripción pueden definirse con `APP_VERSION` y
+    `APP_DESCRIPTION`.
 
 ## Ejecución en macOS (M4 Max)
 

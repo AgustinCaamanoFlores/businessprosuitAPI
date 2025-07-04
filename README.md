@@ -1,4 +1,4 @@
-# BusinessProSuite API (v0.0.1)
+# BusinessProSuite API (v0.0.3)
 
 Este proyecto es una API REST construida con Spring Boot. Provee servicios para distintos dominios del sistema (inventario, finanzas, seguridad, usuarios, etc.).
 
@@ -21,6 +21,10 @@ Este proyecto es una API REST construida con Spring Boot. Provee servicios para 
 - `SPRING_DATASOURCE_PASSWORD` – contraseña de la BD.
 - `JWT_SECRET` – clave secreta para firmar tokens.
 - `JWT_EXPIRATION` – tiempo de expiración en milisegundos.
+- `APP_ENVIRONMENT` – entorno de ejecución (dev, prod, etc.),
+  usado para la propiedad `app.environment`.
+- `APP_VERSION` – versión desplegada (opcional, por defecto `0.0.3`).
+- `APP_DESCRIPTION` – descripción de la API (opcional).
 
 ## Estructura de módulos
 
@@ -38,6 +42,8 @@ Desde 2025 se cuenta además con el endpoint `/api/hr/payrolls` para gestionar l
 Además se habilitó inicio de sesión mediante OAuth2 para proveedores externos (por ejemplo Google). Configurar las credenciales en `application.properties` usando el prefijo `spring.security.oauth2.client`.
 También se incorpora autenticación multifactor (MFA) con TOTP. Usa los endpoints bajo `/api/mfa` para activar y verificar códigos.
 El sistema de notificaciones ahora permite enviar correos mediante `/api/notification-queue/dispatch`.
+Se añadió el endpoint `/api/version` para consultar la versión desplegada.
+También se incorporó `/api/info` que muestra la versión, descripción y entorno de ejecución.
 
 ## Pruebas
 
