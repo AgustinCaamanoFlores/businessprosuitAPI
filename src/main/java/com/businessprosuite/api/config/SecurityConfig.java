@@ -2,6 +2,7 @@ package com.businessprosuite.api.config;
 
 import com.businessprosuite.api.security.JwtFilter;
 import com.businessprosuite.api.security.JwtUtil;
+import com.businessprosuite.api.security.OAuth2LoginSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,13 +22,16 @@ public class SecurityConfig {
     private final JwtUtil jwtUtil;
     private final CustomUserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
+    private final OAuth2LoginSuccessHandler oauth2SuccessHandler;
 
     public SecurityConfig(JwtUtil jwtUtil,
                           CustomUserDetailsService uds,
-                          PasswordEncoder passwordEncoder) {
+                          PasswordEncoder passwordEncoder,
+                          OAuth2LoginSuccessHandler oauth2SuccessHandler) {
         this.jwtUtil = jwtUtil;
         this.userDetailsService = uds;
         this.passwordEncoder = passwordEncoder;
+        this.oauth2SuccessHandler = oauth2SuccessHandler;
     }
 
     @Bean
@@ -59,6 +63,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .oauth2Login(oauth2 -> oauth2.successHandler(oauth2SuccessHandler))
                 .httpBasic(Customizer.withDefaults());
 
         return http.build();

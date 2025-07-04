@@ -9,4 +9,5 @@ public interface NotificationQueueService {
     NotificationQueueDTO create(NotificationQueueDTO dto);
     NotificationQueueDTO update(Integer id, NotificationQueueDTO dto);
     void delete(Integer id);
+    void dispatchPending();
 }

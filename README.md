@@ -1,4 +1,4 @@
-# BusinessProSuite API
+# BusinessProSuite API (v0.0.1)
 
 Este proyecto es una API REST construida con Spring Boot. Provee servicios para distintos dominios del sistema (inventario, finanzas, seguridad, usuarios, etc.).
 
@@ -34,6 +34,11 @@ El código está organizado por dominios dentro de `com.businessprosuite.api`:
 
 Cada subpaquete (finance, inventory, user, security, etc.) representa un dominio del negocio.
 
+Desde 2025 se cuenta además con el endpoint `/api/hr/payrolls` para gestionar la nómina de los trabajadores.
+Además se habilitó inicio de sesión mediante OAuth2 para proveedores externos (por ejemplo Google). Configurar las credenciales en `application.properties` usando el prefijo `spring.security.oauth2.client`.
+También se incorpora autenticación multifactor (MFA) con TOTP. Usa los endpoints bajo `/api/mfa` para activar y verificar códigos.
+El sistema de notificaciones ahora permite enviar correos mediante `/api/notification-queue/dispatch`.
+
 ## Pruebas
 
 Las pruebas unitarias utilizan JUnit 5 y Mockito. Para ejecutarlas:
@@ -43,3 +48,7 @@ Las pruebas unitarias utilizan JUnit 5 y Mockito. Para ejecutarlas:
 ```
 
 Algunos tests pueden requerir dependencias adicionales (por ejemplo Testcontainers) que no están incluidas por defecto.
+
+## Compatibilidad
+
+La API se ha ejecutado correctamente en macOS con procesador M4 Max utilizando Java 17 y Gradle 8.

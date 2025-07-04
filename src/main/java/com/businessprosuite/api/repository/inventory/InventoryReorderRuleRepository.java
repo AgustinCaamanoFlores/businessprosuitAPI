@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface InventoryReorderRuleRepository extends JpaRepository<InventoryReorderRule, Integer> {
+    InventoryReorderRule findFirstByProd_Id(Integer prodId);
 }

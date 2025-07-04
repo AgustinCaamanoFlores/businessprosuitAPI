@@ -8,6 +8,7 @@ import com.businessprosuite.api.repository.notification.NotificationQueueReposit
 import com.businessprosuite.api.repository.notification.NotificationTemplateRepository;
 import com.businessprosuite.api.repository.security.SecurityUserRepository;
 import com.businessprosuite.api.service.notification.NotificationQueueService;
+import com.businessprosuite.api.service.notification.EmailSenderService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class NotificationQueueServiceImpl implements NotificationQueueService {
     private final NotificationQueueRepository queueRepo;
     private final NotificationTemplateRepository templateRepo;
     private final SecurityUserRepository userRepo;
+    private final EmailSenderService emailService;
 
     @Override
     public List<NotificationQueueDTO> findAll() {
@@ -86,6 +88,24 @@ public class NotificationQueueServiceImpl implements NotificationQueueService {
             throw new EntityNotFoundException("NotificationQueue not found with id " + id);
         }
         queueRepo.deleteById(id);
+    }
+
+    @Override
+    public void dispatchPending() {
+        List<NotificationQueue> pending = queueRepo.findBySentFalse();
+        for (NotificationQueue nq : pending) {
+            if (nq.getSecus() == null || nq.getSecus().getSecusEmail() == null) {
+                continue;
+            }
+            emailService.sendEmail(
+                    nq.getSecus().getSecusEmail(),
+                    nq.getTpl().getSubject(),
+                    nq.getTpl().getBody()
+            );
+            nq.setSent(true);
+            nq.setResultMessage("SENT");
+            queueRepo.save(nq);
+        }
     }
 
     private NotificationQueueDTO toDto(NotificationQueue nq) {

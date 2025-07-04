@@ -97,3 +97,14 @@ Se recomienda crear una base vacia en MySQL y aplicar las migraciones con Flyway
 - **Leasing** – gestion de contratos y activos en arrendamiento.
 
 Estas tareas implican generar nuevas entidades, servicios y controladores en los paquetes mencionados.
+
+## Cambios implementados en 2025
+
+- **Inventory**: se añadió el servicio de pronóstico de stock con el endpoint `/api/inventory/products/{id}/forecast` y se incorporó el campo de código de barras en `InventoryWarehouse`.
+- **Finance**: se crearon las entidades `AccountsPayable` y `AccountsReceivable` junto con sus controladores REST.
+- **Documentación**: se agregó `API_DOCUMENTATION.md` y se actualizó `README.md` con instrucciones para macOS M4 Max.
+- **HR**: se incorporó gestión de nómina mediante la entidad `Payroll` y el endpoint `/api/hr/payrolls`.
+- **Security**: se añadió inicio de sesión mediante OAuth2 que genera un JWT automáticamente.
+- **Security**: se implementó autenticación multifactor TOTP con nuevos endpoints y servicio `TotpService`.
+- **Notification**: la cola de notificaciones ahora puede despachar correos mediante `/api/notification-queue/dispatch`.
+- **Versión**: primera versión estable etiquetada como `v0.0.1`.

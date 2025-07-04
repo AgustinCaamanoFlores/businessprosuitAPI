@@ -38,6 +38,10 @@ public class InventoryWarehouse {
     @Column(name = "inv_whse_phone", nullable = false, length = 45)
     private String invWhsePhone;
 
+    @Size(max = 100)
+    @Column(name = "inv_whse_barcode", length = 100)
+    private String invWhseBarcode;
+
     @NotNull
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "inv_whse_created_at", nullable = false)
