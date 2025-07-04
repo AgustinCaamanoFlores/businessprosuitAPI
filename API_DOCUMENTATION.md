@@ -26,7 +26,7 @@ Este documento resume los cambios recientes implementados y cómo ejecutar la AP
 
 ## Ejecución en macOS (M4 Max)
 
-1. Instalar [Java 17](https://adoptium.net/) y [Gradle 8](https://gradle.org/).
+1. Instalar [Java 17](https://adoptium.net/) y [Gradle 8](https://gradle.org/). (Gradle descargará la JDK si no la detecta).
 2. Configurar MySQL 8 y las variables de entorno descritas en `README.md`.
 3. Ejecutar:
 

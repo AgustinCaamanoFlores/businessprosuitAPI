@@ -4,7 +4,7 @@ Este proyecto es una API REST construida con Spring Boot. Provee servicios para 
 
 ## Requisitos
 
-- Java 17
+- Java 17 (Gradle descargará la JDK automáticamente si no está instalada)
 - Gradle 8+
 - MySQL 8
 
