@@ -103,3 +103,4 @@ Estas tareas implican generar nuevas entidades, servicios y controladores en los
 - **Inventory**: se añadió el servicio de pronóstico de stock con el endpoint `/api/inventory/products/{id}/forecast` y se incorporó el campo de código de barras en `InventoryWarehouse`.
 - **Finance**: se crearon las entidades `AccountsPayable` y `AccountsReceivable` junto con sus controladores REST.
 - **Documentación**: se agregó `API_DOCUMENTATION.md` y se actualizó `README.md` con instrucciones para macOS M4 Max.
+- **HR**: se incorporó gestión de nómina mediante la entidad `Payroll` y el endpoint `/api/hr/payrolls`.

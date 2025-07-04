@@ -34,6 +34,8 @@ El código está organizado por dominios dentro de `com.businessprosuite.api`:
 
 Cada subpaquete (finance, inventory, user, security, etc.) representa un dominio del negocio.
 
+Desde 2025 se cuenta además con el endpoint `/api/hr/payrolls` para gestionar la nómina de los trabajadores.
+
 ## Pruebas
 
 Las pruebas unitarias utilizan JUnit 5 y Mockito. Para ejecutarlas:

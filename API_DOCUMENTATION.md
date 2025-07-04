@@ -9,6 +9,8 @@ Este documento resume los cambios recientes implementados y cómo ejecutar la AP
   - Endpoint `/api/inventory/products/{id}/forecast` para obtener la cantidad recomendada de reabastecimiento.
 - **Finanzas**
   - Nuevas entidades de Cuentas por Cobrar (`AccountsReceivable`) y Cuentas por Pagar (`AccountsPayable`) junto a sus controladores REST.
+- **Recursos Humanos**
+  - Se añadió gestión de nómina con el nuevo endpoint `/api/hr/payrolls` para crear y consultar pagos a empleados.
 
 ## Ejecución en macOS (M4 Max)
 
