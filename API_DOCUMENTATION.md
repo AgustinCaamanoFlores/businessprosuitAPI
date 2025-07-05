@@ -20,9 +20,10 @@ Este documento resume los cambios recientes implementados y cómo ejecutar la AP
 - **Versión**
   - El endpoint `/api/version` devuelve la versión configurada.
   - `/api/info` ahora muestra versión, descripción y el entorno.
-  - El entorno se define con la variable de entorno `APP_ENVIRONMENT`.
-  - La versión y descripción pueden definirse con `APP_VERSION` y
+- El entorno se define con la variable de entorno `APP_ENVIRONMENT`.
+- La versión y descripción pueden definirse con `APP_VERSION` y
     `APP_DESCRIPTION`.
+  - El nombre de la aplicación puede fijarse con `APP_NAME`.
 
 ## Ejecución en macOS (M4 Max)
 

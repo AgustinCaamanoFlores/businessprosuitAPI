@@ -16,7 +16,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestPropertySource(properties = {
         "app.version=1.2.3",
         "app.description=Test API",
-        "app.environment=test"
+        "app.environment=test",
+        "app.name=MyAPI"
 })
 class InfoControllerIT {
 
@@ -36,6 +37,7 @@ class InfoControllerIT {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.version").value("1.2.3"))
                 .andExpect(jsonPath("$.description").value("Test API"))
-                .andExpect(jsonPath("$.environment").value("test"));
+                .andExpect(jsonPath("$.environment").value("test"))
+                .andExpect(jsonPath("$.name").value("MyAPI"));
     }
 }

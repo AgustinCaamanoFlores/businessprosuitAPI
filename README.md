@@ -25,6 +25,7 @@ Este proyecto es una API REST construida con Spring Boot. Provee servicios para 
   usado para la propiedad `app.environment`.
 - `APP_VERSION` – versión desplegada (opcional, por defecto `0.0.3`).
 - `APP_DESCRIPTION` – descripción de la API (opcional).
+- `APP_NAME` – nombre de la aplicación (opcional, por defecto `BusinessProSuite`).
 
 ## Estructura de módulos
 

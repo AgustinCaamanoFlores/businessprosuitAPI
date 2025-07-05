@@ -18,6 +18,9 @@ public class InfoController {
     @Value("${app.description}")
     private String appDescription;
 
+    @Value("${app.name:BusinessProSuite}")
+    private String appName;
+
     @Value("${app.environment:local}")
     private String appEnvironment;
 
@@ -34,7 +37,8 @@ public class InfoController {
         return ResponseEntity.ok(Map.of(
                 "version", appVersion,
                 "description", appDescription,
-                "environment", appEnvironment
+                "environment", appEnvironment,
+                "name", appName
         ));
     }
 }

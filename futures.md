@@ -113,3 +113,4 @@ Estas tareas implican generar nuevas entidades, servicios y controladores en los
 - **Versión**: `/api/info` ahora también expone el entorno mediante `app.environment`.
 - **Versión**: `app.environment` puede configurarse con la variable de entorno `APP_ENVIRONMENT`.
 - **Versión**: liberada `v0.0.3` con soporte de variables `APP_VERSION` y `APP_DESCRIPTION`.
+- **Versión**: `app.name` configurable con `APP_NAME` y visible en `/api/info`.
