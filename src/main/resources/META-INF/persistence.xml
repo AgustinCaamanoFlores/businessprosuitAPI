@@ -1,5 +1,5 @@
-<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
-             version="2.2">
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             version="3.1">
   <persistence-unit name="default">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
