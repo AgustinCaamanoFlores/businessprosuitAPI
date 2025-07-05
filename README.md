@@ -14,6 +14,29 @@ Este proyecto es una API REST construida con Spring Boot. Provee servicios para 
 2. Configurar las variables de entorno indicadas abajo o editar `src/main/resources/application.properties`.
 3. Ejecutar `./gradlew bootRun` para iniciar la API.
 
+### Ejecución local paso a paso
+
+Si es la primera vez que ejecutas la API de forma local sigue estos pasos:
+
+1. **Crear la base de datos** en MySQL.
+   ```sql
+   CREATE DATABASE BusinessProSuite;
+   ```
+2. **Definir la conexión**. Puedes utilizar variables de entorno o modificar los
+   siguientes archivos:
+   - `src/main/resources/application.properties` (perfil activo y puerto).
+   - `src/main/resources/application-dev.properties` (credenciales y URL de la base de datos).
+3. Asegúrate de especificar `spring.datasource.url`, `spring.datasource.username`
+   y `spring.datasource.password` con los valores de tu entorno.
+4. Opcionalmente ajusta `JWT_SECRET` u otras variables que aparecen en la sección
+   siguiente.
+5. Finalmente ejecuta:
+   ```bash
+   ./gradlew bootRun
+   ```
+6. Accede a <http://localhost:8080/swagger-ui.html> para comprobar que la API está
+   en funcionamiento.
+
 ## Variables de entorno principales
 
 - `SPRING_DATASOURCE_URL` – URL de conexión a la base de datos.
