@@ -50,6 +50,14 @@ Si es la primera vez que ejecutas la API de forma local sigue estos pasos:
 - `APP_DESCRIPTION` – descripción de la API (opcional).
 - `APP_NAME` – nombre de la aplicación (opcional, por defecto `BusinessProSuite`).
 
+## Migraciones de base de datos
+
+Para controlar el orden de creacion del esquema en produccion se usa Flyway.
+Coloca los scripts en `src/main/resources/db/migration` numerados como `V1__`, `V2__`, etc.
+El archivo `V1__baseline.sql` crea las tablas basicas (`usr_roles`, `usr_users` y `usr_user_roles`) en ese orden.
+En desarrollo Hibernate puede seguir actualizando el esquema con `spring.jpa.hibernate.ddl-auto=update`.
+
+
 ## Estructura de módulos
 
 El código está organizado por dominios dentro de `com.businessprosuite.api`:
