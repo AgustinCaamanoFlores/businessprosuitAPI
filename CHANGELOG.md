@@ -3,6 +3,7 @@
 - `app.version` y `app.description` pueden configurarse con las variables de entorno `APP_VERSION` y `APP_DESCRIPTION`.
 - Gradle puede descargar automáticamente la JDK requerida para las pruebas.
 - Nueva propiedad `app.name` configurable con `APP_NAME` y devuelta en `/api/info`.
+- Se añadió script inicial de Flyway `V1__baseline.sql` y documentación de migraciones.
 ## v0.0.2
 - Nuevo endpoint `/api/version` para consultar la versión de la API.
 - Valor de la versión configurable en `application.properties` (app.version).
