@@ -17,10 +17,17 @@ Este documento resume los cambios recientes implementados y cómo ejecutar la AP
 
 - **Notificaciones**
   - Las notificaciones en cola pueden enviarse por correo usando `/api/notification-queue/dispatch`.
+- **Versión**
+  - El endpoint `/api/version` devuelve la versión configurada.
+  - `/api/info` ahora muestra versión, descripción y el entorno.
+- El entorno se define con la variable de entorno `APP_ENVIRONMENT`.
+- La versión y descripción pueden definirse con `APP_VERSION` y
+    `APP_DESCRIPTION`.
+  - El nombre de la aplicación puede fijarse con `APP_NAME`.
 
 ## Ejecución en macOS (M4 Max)
 
-1. Instalar [Java 17](https://adoptium.net/) y [Gradle 8](https://gradle.org/).
+1. Instalar [Java 17](https://adoptium.net/) y [Gradle 8](https://gradle.org/). (Gradle descargará la JDK si no la detecta).
 2. Configurar MySQL 8 y las variables de entorno descritas en `README.md`.
 3. Ejecutar:
 

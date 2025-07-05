@@ -1,4 +1,16 @@
 # Cambios de la API
+## v0.0.3
+- `app.version` y `app.description` pueden configurarse con las variables de entorno `APP_VERSION` y `APP_DESCRIPTION`.
+- Gradle puede descargar automáticamente la JDK requerida para las pruebas.
+- Nueva propiedad `app.name` configurable con `APP_NAME` y devuelta en `/api/info`.
+## v0.0.2
+- Nuevo endpoint `/api/version` para consultar la versión de la API.
+- Valor de la versión configurable en `application.properties` (app.version).
+- Se añadió propiedad `app.description` para describir la API.
+- Nuevo endpoint `/api/info` que devuelve versión y descripción.
+- Nueva propiedad `app.environment` para indicar el entorno y ahora `/api/info` la retorna.
+- La propiedad puede fijarse mediante la variable de entorno `APP_ENVIRONMENT`.
+- Se añadieron pruebas de `InfoController` para `/api/version` y `/api/info`.
 
 ## v0.0.1
 - Implementación de cuentas por pagar y cobrar en Finanzas.
