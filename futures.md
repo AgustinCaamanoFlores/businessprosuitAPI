@@ -111,4 +111,5 @@ Estas tareas implican generar nuevas entidades, servicios y controladores en los
 - **Versión**: liberada `v0.0.2` con el endpoint `/api/version` para consultar la versión de la API.
 - **Versión**: `/api/info` muestra la versión y descripción configuradas.
 - **Versión**: `/api/info` ahora también expone el entorno mediante `app.environment`.
+- **Versión**: `app.environment` puede configurarse con la variable de entorno `APP_ENVIRONMENT`.
 - **Versión**: liberada `v0.0.3` con soporte de variables `APP_VERSION` y `APP_DESCRIPTION`.
