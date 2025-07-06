@@ -28,6 +28,8 @@ Si es la primera vez que ejecutas la API de forma local sigue estos pasos:
    - `src/main/resources/application-dev.properties` (credenciales y URL de la base de datos).
 3. Asegúrate de especificar `spring.datasource.url`, `spring.datasource.username`
    y `spring.datasource.password` con los valores de tu entorno.
+   También puedes definir `DB_SCHEMA` si tu base de datos tiene un nombre
+   diferente; Hibernate utilizará ese esquema como predeterminado.
 4. Opcionalmente ajusta `JWT_SECRET` u otras variables que aparecen en la sección
    siguiente.
 5. Finalmente ejecuta:
@@ -49,6 +51,7 @@ Si es la primera vez que ejecutas la API de forma local sigue estos pasos:
 - `APP_VERSION` – versión desplegada (opcional, por defecto `0.0.3`).
 - `APP_DESCRIPTION` – descripción de la API (opcional).
 - `APP_NAME` – nombre de la aplicación (opcional, por defecto `BusinessProSuite`).
+- `DB_SCHEMA` – esquema predeterminado usado por Hibernate (opcional, por defecto `BusinessProSuite`).
 
 ## Migraciones de base de datos
 
