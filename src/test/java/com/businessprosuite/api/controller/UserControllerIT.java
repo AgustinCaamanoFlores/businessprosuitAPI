@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.context.TestPropertySource;
@@ -41,7 +40,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = BusinessProSuiteApiApplication.class)
         })
 @AutoConfigureMockMvc(addFilters = false)
-@ContextConfiguration(classes = {UserController.class, UserControllerIT.DummySpringBootConfiguration.class})
+@ContextConfiguration(classes = {UserController.class,
+        UserControllerIT.DummySpringBootConfiguration.class,
+        UserControllerIT.DummyServiceConfig.class})
 @TestPropertySource(properties = {
         "spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration,org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration,org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration,org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration"
 })
@@ -52,7 +53,7 @@ class UserControllerIT {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @MockBean
+    @Autowired
     private UserService service;
 
     @Test
@@ -70,6 +71,14 @@ class UserControllerIT {
         @Bean
         EntityManagerFactory entityManagerFactory() {
             return Mockito.mock(EntityManagerFactory.class);
+        }
+    }
+
+    @TestConfiguration
+    static class DummyServiceConfig {
+        @Bean
+        UserService userService() {
+            return Mockito.mock(UserService.class);
         }
     }
 

@@ -54,12 +54,15 @@ public class Currency {
     @Column(name = "fin_cur_updated_at", nullable = false)
     private LocalDateTime finCurUpdatedAt;
 
+    @Builder.Default
     @OneToMany(mappedBy = "finConvCurFrom")
     private Set<Conversion> finConvsFrom = new LinkedHashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "finConvCurTo")
     private Set<Conversion> finConvsTo = new LinkedHashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "finWltCurCode")
     private Set<Wallet> wallets = new LinkedHashSet<>();
 

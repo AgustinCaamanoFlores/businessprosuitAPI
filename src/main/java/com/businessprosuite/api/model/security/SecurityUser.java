@@ -108,39 +108,51 @@ public class SecurityUser {
     @Column(name = "secus_updated_at", nullable = false)
     private LocalDateTime secusUpdatedAt;
 
+    @Builder.Default
     @OneToMany(mappedBy = "alUser")
     private Set<ActivityLog> activityLogs = new LinkedHashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "aulaUser")
     private Set<LoginAttempt> loginAttempts = new LinkedHashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "sdaUser")
     private Set<SensitiveDataAccess> sensitiveDataAccesses = new LinkedHashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "finInvSecus")
     private Set<Invoice> invoices = new LinkedHashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "finWltSecus")
     private Set<Wallet> wallets = new LinkedHashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "secus")
     private Set<GDPRRequest> GDPRRequests = new LinkedHashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "secus")
     private Set<NotificationQueue> notificationQueues = new LinkedHashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "secus")
     private Set<SecurityOtp> securityOtps = new LinkedHashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "secphSecus")
     private Set<SecurityPasswordHistory> secPasswordHistories = new LinkedHashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "secus")
     private Set<SecuritySession> securitySessions = new LinkedHashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "secUrSecus")
     private Set<SecurityUserRole> securityUserRoles = new LinkedHashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "wfAsignadoA")
     private Set<WorkflowInstance> workflowInstances = new LinkedHashSet<>();
 

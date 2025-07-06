@@ -12,7 +12,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.context.TestPropertySource;
@@ -41,7 +40,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = BusinessProSuiteApiApplication.class)
         })
 @AutoConfigureMockMvc(addFilters = false)
-@ContextConfiguration(classes = {InvoiceController.class, InvoiceControllerIT.DummySpringBootConfiguration.class})
+@ContextConfiguration(classes = {InvoiceController.class,
+        InvoiceControllerIT.DummySpringBootConfiguration.class,
+        InvoiceControllerIT.DummyServiceConfig.class})
 @TestPropertySource(properties = {
         "spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration,org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration,org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration,org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration"
 })
@@ -49,7 +50,7 @@ class InvoiceControllerIT {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @Autowired
     private InvoiceService service;
 
     @Test
@@ -65,6 +66,14 @@ class InvoiceControllerIT {
         @Bean
         EntityManagerFactory entityManagerFactory() {
             return Mockito.mock(EntityManagerFactory.class);
+        }
+    }
+
+    @TestConfiguration
+    static class DummyServiceConfig {
+        @Bean
+        InvoiceService invoiceService() {
+            return Mockito.mock(InvoiceService.class);
         }
     }
 

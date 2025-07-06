@@ -82,9 +82,11 @@ public class Invoice {
     @Column(name = "fin_inv_net", precision = 10, scale = 2)
     private BigDecimal finInvNet;
 
+    @Builder.Default
     @OneToMany(mappedBy = "finInvdInv")
     private Set<InvoiceDetail> invoiceDetails = new LinkedHashSet<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "finPayInv")
     private Set<Payment> payments = new LinkedHashSet<>();
 

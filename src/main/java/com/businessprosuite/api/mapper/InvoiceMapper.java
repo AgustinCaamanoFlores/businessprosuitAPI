@@ -47,6 +47,8 @@ public interface InvoiceMapper {
     @Mapping(target = "finInvTax", source = "tax")
     @Mapping(target = "finInvDiscount", source = "discount")
     @Mapping(target = "finInvPaymentStatus", source = "paymentStatus")
+    @Mapping(target = "finInvCreatedAt", source = "createdAt")
+    @Mapping(target = "finInvUpdatedAt", source = "updatedAt")
     @Mapping(target = "finInvNet", source = "net")
     void updateEntity(InvoiceDTO dto, @MappingTarget Invoice entity);
 }
