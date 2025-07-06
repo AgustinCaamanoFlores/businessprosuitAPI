@@ -55,7 +55,7 @@ Si es la primera vez que ejecutas la API de forma local sigue estos pasos:
 Para controlar el orden de creacion del esquema en produccion se usa Flyway.
 Coloca los scripts en `src/main/resources/db/migration` numerados como `V1__`, `V2__`, etc.
 El archivo `V1__baseline.sql` crea las tablas basicas (`usr_roles`, `usr_users` y `usr_user_roles`) en ese orden.
-En desarrollo Hibernate puede seguir actualizando el esquema con `spring.jpa.hibernate.ddl-auto=update`.
+En desarrollo se recomienda validar el esquema con `spring.jpa.hibernate.ddl-auto=validate` y gestionar los cambios mediante Flyway.
 
 
 ## Estructura de módulos
