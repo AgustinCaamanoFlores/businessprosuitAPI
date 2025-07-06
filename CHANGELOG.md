@@ -1,5 +1,6 @@
 # Cambios de la API
 ## v0.0.3
+- Se habilitaron peticiones CORS desde `localhost` en los puertos `3000-3010`.
 - `app.version` y `app.description` pueden configurarse con las variables de entorno `APP_VERSION` y `APP_DESCRIPTION`.
 - Gradle puede descargar automáticamente la JDK requerida para las pruebas.
 - Nueva propiedad `app.name` configurable con `APP_NAME` y devuelta en `/api/info`.

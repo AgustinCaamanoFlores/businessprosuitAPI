@@ -40,6 +40,11 @@ Si es la primera vez que ejecutas la API de forma local sigue estos pasos:
 6. Accede a <http://localhost:8080/swagger-ui.html> para comprobar que la API está
    en funcionamiento.
 
+### Conexión desde el front-end local
+
+El CORS de la API permite peticiones desde `localhost` en los puertos `3000` al
+`3010`. Esto facilita integrar aplicaciones web durante el desarrollo.
+
 ## Variables de entorno principales
 
 - `SPRING_DATASOURCE_URL` – URL de conexión a la base de datos.
