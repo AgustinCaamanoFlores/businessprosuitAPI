@@ -6,6 +6,7 @@
 - Se añadió script inicial de Flyway `V1__baseline.sql` y documentación de migraciones.
 - Se cambió `spring.jpa.hibernate.ddl-auto` a `validate` para congelar el esquema en desarrollo.
 - Se añadió la propiedad `DB_SCHEMA` para configurar el esquema predeterminado.
+- Documentadas instrucciones para desactivar temporalmente `sql_mode` en laboratorios.
 ## v0.0.2
 - Nuevo endpoint `/api/version` para consultar la versión de la API.
 - Valor de la versión configurable en `application.properties` (app.version).

@@ -53,6 +53,13 @@ Si es la primera vez que ejecutas la API de forma local sigue estos pasos:
 - `APP_NAME` – nombre de la aplicación (opcional, por defecto `BusinessProSuite`).
 - `DB_SCHEMA` – esquema predeterminado usado por Hibernate (opcional, por defecto `BusinessProSuite`).
 
+En entornos de laboratorio puedes desactivar temporalmente algunos `sql_mode` conflictivos de MySQL con:
+```sql
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'STRICT_TRANS_TABLES',''));
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'NO_ZERO_DATE',''));
+```
+No se recomienda aplicar esto en producción.
+
 ## Migraciones de base de datos
 
 Para controlar el orden de creacion del esquema en produccion se usa Flyway.
