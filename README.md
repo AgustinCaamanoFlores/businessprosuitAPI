@@ -27,7 +27,10 @@ Si es la primera vez que ejecutas la API de forma local sigue estos pasos:
    - `src/main/resources/application.properties` (perfil activo y puerto).
    - `src/main/resources/application-dev.properties` (credenciales y URL de la base de datos).
 3. Asegúrate de especificar `spring.datasource.url`, `spring.datasource.username`
-   y `spring.datasource.password` con los valores de tu entorno.
+   y `spring.datasource.password` con los valores de tu entorno. Por defecto la
+   URL incluye `${DB_SCHEMA}` para que puedas cambiar el nombre de la base de
+   datos sin editar el archivo. Define `DB_SCHEMA` si tu instancia usa un
+   esquema diferente; Hibernate lo utilizará como predeterminado.
 4. Opcionalmente ajusta `JWT_SECRET` u otras variables que aparecen en la sección
    siguiente.
 5. Finalmente ejecuta:
@@ -49,13 +52,22 @@ Si es la primera vez que ejecutas la API de forma local sigue estos pasos:
 - `APP_VERSION` – versión desplegada (opcional, por defecto `0.0.3`).
 - `APP_DESCRIPTION` – descripción de la API (opcional).
 - `APP_NAME` – nombre de la aplicación (opcional, por defecto `BusinessProSuite`).
+- `DB_SCHEMA` – nombre del esquema usado tanto en la URL de la base de datos
+  como por Hibernate (opcional, por defecto `BusinessProSuite`).
+
+En entornos de laboratorio puedes desactivar temporalmente algunos `sql_mode` conflictivos de MySQL con:
+```sql
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'STRICT_TRANS_TABLES',''));
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'NO_ZERO_DATE',''));
+```
+No se recomienda aplicar esto en producción.
 
 ## Migraciones de base de datos
 
 Para controlar el orden de creacion del esquema en produccion se usa Flyway.
 Coloca los scripts en `src/main/resources/db/migration` numerados como `V1__`, `V2__`, etc.
 El archivo `V1__baseline.sql` crea las tablas basicas (`usr_roles`, `usr_users` y `usr_user_roles`) en ese orden.
-En desarrollo Hibernate puede seguir actualizando el esquema con `spring.jpa.hibernate.ddl-auto=update`.
+En desarrollo se recomienda validar el esquema con `spring.jpa.hibernate.ddl-auto=validate` y gestionar los cambios mediante Flyway.
 
 
 ## Estructura de módulos

@@ -30,5 +30,6 @@ public interface InvoiceDetailMapper {
     @Mapping(target = "finInvdQuantity", source = "quantity")
     @Mapping(target = "finInvdUnitPrice", source = "unitPrice")
     @Mapping(target = "finInvdTotalPrice", source = "totalPrice")
+    @Mapping(target = "finInvdCreatedAt", source = "createdAt")
     void updateEntity(InvoiceDetailDTO dto, @MappingTarget InvoiceDetail entity);
 }

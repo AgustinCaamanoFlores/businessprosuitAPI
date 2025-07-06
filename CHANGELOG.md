@@ -4,6 +4,12 @@
 - Gradle puede descargar automáticamente la JDK requerida para las pruebas.
 - Nueva propiedad `app.name` configurable con `APP_NAME` y devuelta en `/api/info`.
 - Se añadió script inicial de Flyway `V1__baseline.sql` y documentación de migraciones.
+- Se cambió `spring.jpa.hibernate.ddl-auto` a `validate` para congelar el esquema en desarrollo.
+- Se añadió la propiedad `DB_SCHEMA` para configurar el esquema predeterminado.
+- La URL de conexión usa ahora `${DB_SCHEMA}` para permitir cambiar la base de datos sin editar archivos.
+- Documentadas instrucciones para desactivar temporalmente `sql_mode` en laboratorios.
+- Se corrigieron advertencias de Lombok y MapStruct y se reemplazó `@MockBean` por
+  configuraciones de prueba para evitar deprecaciones.
 ## v0.0.2
 - Nuevo endpoint `/api/version` para consultar la versión de la API.
 - Valor de la versión configurable en `application.properties` (app.version).
